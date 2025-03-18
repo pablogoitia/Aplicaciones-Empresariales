@@ -2,9 +2,6 @@ package es.unican.polaflix_pablo.domain;
 
 import java.util.Date;
 
-import es.unican.polaflix_pablo.domain.Usuario;
-import es.unican.polaflix_pablo.domain.Cargo;
-
 public class Factura {
     private final String numeroFactura;
     private final Date fechaFactura;
@@ -17,6 +14,12 @@ public class Factura {
         // this.fechaFactura = ultimoDiaDeEsteMes();
         fechaFactura = new Date();
         this.usuario = usuario;
+    }
+
+    public Cargo addCargo(Capitulo capitulo) {
+        Cargo cargo = new Cargo(capitulo.getTemporada().getSerie().getNombre(), capitulo.getTemporada().getNumeroTemporada() + "x" + capitulo.getNumeroCapitulo(), capitulo.getTemporada().getSerie().getCategoria().getImporteCapitulo());
+        importeTotal += cargo.getImporte();
+        return cargo;
     }
 
     // Getters y Setters

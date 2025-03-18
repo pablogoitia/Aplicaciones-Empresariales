@@ -3,9 +3,6 @@ package es.unican.polaflix_pablo.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.unican.polaflix_pablo.domain.Capitulo;
-import es.unican.polaflix_pablo.domain.Serie;
-
 public class Temporada {
     private final int numeroTemporada;
     private final Serie serie;
@@ -14,6 +11,14 @@ public class Temporada {
     public Temporada(int numeroTemporada, Serie serie) {
         this.numeroTemporada = numeroTemporada;
         this.serie = serie;
+    }
+
+    public void addCapitulo(Capitulo capitulo) {
+        capitulos.add(capitulo.getNumeroCapitulo() - 1, capitulo);
+    }
+
+    public Capitulo getCapitulo(int numero) {
+        return capitulos.get(numero - 1);
     }
 
     // Getters

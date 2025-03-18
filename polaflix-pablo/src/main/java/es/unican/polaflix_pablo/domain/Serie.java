@@ -3,9 +3,6 @@ package es.unican.polaflix_pablo.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.unican.polaflix_pablo.domain.CategoriaSeries;
-import es.unican.polaflix_pablo.domain.Temporada;
-
 public class Serie {
     private final String nombre;
     private String sinopsis;
@@ -20,6 +17,14 @@ public class Serie {
         this.categoria = categoria;
         this.creadores = creadores;
         this.actores = actores;
+    }
+
+    public void addTemporada(Temporada temporada) {
+        temporadas.add(temporada.getNumeroTemporada() - 1, temporada);
+    }
+
+    public Temporada getTemporada(int numero) {
+        return temporadas.get(numero - 1);
     }
 
     // Getters y Setters
