@@ -17,7 +17,9 @@ public class Factura {
     }
 
     public Cargo addCargo(Capitulo capitulo) {
-        Cargo cargo = new Cargo(capitulo.getTemporada().getSerie().getNombre(), capitulo.getTemporada().getNumeroTemporada() + "x" + capitulo.getNumeroCapitulo(), capitulo.getTemporada().getSerie().getCategoria().getImporteCapitulo());
+        Cargo cargo = new Cargo(capitulo.getTemporada().getSerie().getNombre(),
+                capitulo.getTemporada().getNumeroTemporada() + "x" + capitulo.getNumeroCapitulo(),
+                capitulo.getTemporada().getSerie().getCategoria().getImporteCapitulo());
         importeTotal += cargo.getImporte();
         return cargo;
     }

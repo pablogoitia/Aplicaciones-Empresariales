@@ -39,11 +39,13 @@ public class Usuario {
         boolean no_visto = false;
         Factura f = facturas.getLast();
 
-        // Si la serie esta en la lista de empezadas, agregamos el capitulo a la lista de capitulos vistos
+        // Si la serie esta en la lista de empezadas, agregamos el capitulo a la lista
+        // de capitulos vistos
         if ((se = getSerieEmpezada(capitulo.getTemporada().getSerie())) != null) {
             se.addCapituloVisto(capitulo);
         } else if ((s = getSeriePendiente(capitulo.getTemporada().getSerie())) != null) {
-            // Si la serie esta en la lista de pendientes, la movemos a la lista de empezadas y agregamos el capitulo a la lista de capitulos vistos
+            // Si la serie esta en la lista de pendientes, la movemos a la lista de
+            // empezadas y agregamos el capitulo a la lista de capitulos vistos
             se = movPendienteAEmpezadas(s);
             no_visto = se.addCapituloVisto(capitulo);
 
