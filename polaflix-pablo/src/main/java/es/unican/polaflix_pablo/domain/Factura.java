@@ -1,17 +1,20 @@
 package es.unican.polaflix_pablo.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Factura {
     private final String numeroFactura;
     private final Date fechaFactura;
     private float importeTotal = 0;
     private final Usuario usuario;
+    private final List<Cargo> cargos = new ArrayList<>();
 
     public Factura(Usuario usuario) {
-        // this.numeroFactura = generaNumeroFactura();
+        // TODO: this.numeroFactura = generaNumeroFactura();
         numeroFactura = "POLAFLIX_MARZO_AA01";
-        // this.fechaFactura = ultimoDiaDeEsteMes();
+        // TODO: this.fechaFactura = ultimoDiaDeEsteMes();
         fechaFactura = new Date();
         this.usuario = usuario;
     }
@@ -21,6 +24,7 @@ public class Factura {
                 capitulo.getTemporada().getNumeroTemporada() + "x" + capitulo.getNumeroCapitulo(),
                 capitulo.getTemporada().getSerie().getCategoria().getImporteCapitulo());
         importeTotal += cargo.getImporte();
+        cargos.add(cargo);
         return cargo;
     }
 
@@ -43,5 +47,9 @@ public class Factura {
 
     public Usuario getUsuario() {
         return usuario;
+    }
+
+    public List<Cargo> getCargos() {
+        return cargos;
     }
 }

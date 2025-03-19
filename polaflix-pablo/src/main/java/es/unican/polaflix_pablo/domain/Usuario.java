@@ -37,28 +37,31 @@ public class Usuario {
         Serie s = null;
         SerieEmpezada se = null;
         boolean no_visto = false;
-        Factura f = facturas.getLast();
+        Factura f;
 
-        // Si la serie esta en la lista de empezadas, agregamos el capitulo a la lista
-        // de capitulos vistos
-        if ((se = getSerieEmpezada(capitulo.getTemporada().getSerie())) != null) {
-            se.addCapituloVisto(capitulo);
-        } else if ((s = getSeriePendiente(capitulo.getTemporada().getSerie())) != null) {
-            // Si la serie esta en la lista de pendientes, la movemos a la lista de
-            // empezadas y agregamos el capitulo a la lista de capitulos vistos
+        // Si la serie esta en la lista de pendientes, la movemos a la lista de empezadas
+        if ((s = getSeriePendiente(capitulo.getTemporada().getSerie())) != null) {
             se = movPendienteAEmpezadas(s);
-            no_visto = se.addCapituloVisto(capitulo);
+        }
 
-            // Si el capitulo no se habia visto antes, se agrega el cargo a la factura
-            if (no_visto) {
-                f.addCargo(capitulo);
-                facturas.add(f);
-            }
-        } else {
+        // Si la serie no esta en la lista de empezadas, devolvemos false
+        if ((se = getSerieEmpezada(capitulo.getTemporada().getSerie())) == null) {
             return false;
         }
 
-        // Si no esta en ninguna lista, devolvemos false
+        no_visto = se.addCapituloVisto(capitulo);
+        
+        // Si el capitulo no se habia visto antes, se agrega el cargo a la factura
+        if (no_visto) {
+            // Si el mes actual no tiene factura, creamos una nueva
+            f = getFacturaMesActual();
+            if (f == null) {
+                f = nuevaFactura();
+            }
+            f.addCargo(capitulo);
+            facturas.add(f);
+        }
+
         return true;
     }
 
@@ -88,6 +91,12 @@ public class Usuario {
             }
         }
         return null;
+    }
+    
+    public Factura nuevaFactura() {
+        Factura f = new Factura(this);
+        facturas.add(f);
+        return f;
     }
 
     // Getters y Setters
@@ -137,5 +146,13 @@ public class Usuario {
 
     public List<Factura> getFacturas() {
         return facturas;
+    }
+
+    public Factura getFacturaMesActual() {
+        // TODO: Implementar
+        if (facturas.isEmpty()) {
+            return null;
+        }
+        return facturas.get(facturas.size() - 1);
     }
 }
