@@ -12,11 +12,12 @@ public class UsuarioTest {
     private Temporada temporada1;
     private Capitulo capitulo1;
     private Capitulo capitulo2;
-    private CategoriaSeries categoria = new CategoriaSeries("Categoria 1", 10);
+    private CategoriaSeries categoria;
 
     @BeforeEach
     void setUp() {
         usuario = new Usuario("usuario1", "password", "ES1234567890");
+        categoria = new CategoriaSeries("Categoria 1", 10);
         serie1 = new Serie("Serie 1", "Sipnosis", categoria, "Creadores", "Actores");
         temporada1 = new Temporada(1, serie1);
         capitulo1 = new Capitulo(1, "Capitulo 1", "Descripcion", temporada1);
@@ -35,6 +36,7 @@ public class UsuarioTest {
 
     @Test
     void testVerCapitulo() {
+        // Comprueba que los capitulos se facturan correctamente
         usuario.addSeriePendiente(serie1);
         List<Factura> facturas = usuario.getFacturas();
         assertTrue(facturas.isEmpty());
@@ -46,6 +48,11 @@ public class UsuarioTest {
         assertEquals(2, ultimaFactura.getCargos().size());
         assertEquals(categoria.getImporteCapitulo() * 2, ultimaFactura.getImporteTotal());
         assertEquals(capitulo2.getTemporada().getSerie().getNombre(), ultimaFactura.getCargos().getLast().getNombreSerie());
+
+        // Comprueba que un capitulo visto no se vuelve a facturar
+        assertTrue(usuario.verCapitulo(capitulo2));
+        assertEquals(2, ultimaFactura.getCargos().size());
+        assertEquals(categoria.getImporteCapitulo() * 2, ultimaFactura.getImporteTotal());
     }
 
     @Test
