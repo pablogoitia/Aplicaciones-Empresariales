@@ -11,4 +11,11 @@ public class CapituloVisto {
     public Capitulo getCapitulo() {
         return capitulo;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        CapituloVisto that = (CapituloVisto) o;
+
+        return getCapitulo().equals(that.capitulo);
+    }
 }
