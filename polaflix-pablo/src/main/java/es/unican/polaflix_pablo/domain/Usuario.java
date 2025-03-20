@@ -1,7 +1,9 @@
 package es.unican.polaflix_pablo.domain;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class Usuario {
     // Datos del usuario
@@ -74,6 +76,36 @@ public class Usuario {
         seriesPendientes.remove(serie);
         return serieEmpezada;
     }
+    
+    public Factura nuevaFactura() {
+        Factura f = new Factura(this);
+        facturas.add(f);
+        return f;
+    }
+
+    // Getters y Setters
+    public Factura getFacturaMesActual() {
+        int mesActual;
+        int mesFactura;
+        Factura f = null;
+        Calendar cal = Calendar.getInstance();
+
+        if (facturas.isEmpty()) {
+            return null;
+        }
+
+        // Si la ultima factura es del mes actual, la devolvemos
+        f = facturas.get(facturas.size() - 1);
+        mesFactura = f.getMes();
+        cal.setTime(new Date());
+        mesActual = cal.get(Calendar.MONTH) + 1;
+
+        if (mesFactura == mesActual) {
+            return f;
+        } else {
+            return null;
+        }
+    }
 
     public Serie getSeriePendiente(Serie serie) {
         for (Serie s : seriesPendientes) {
@@ -92,14 +124,7 @@ public class Usuario {
         }
         return null;
     }
-    
-    public Factura nuevaFactura() {
-        Factura f = new Factura(this);
-        facturas.add(f);
-        return f;
-    }
 
-    // Getters y Setters
     public String getNombreUsuario() {
         return nombreUsuario;
     }
@@ -146,13 +171,5 @@ public class Usuario {
 
     public List<Factura> getFacturas() {
         return facturas;
-    }
-
-    public Factura getFacturaMesActual() {
-        // TODO: Implementar
-        if (facturas.isEmpty()) {
-            return null;
-        }
-        return facturas.get(facturas.size() - 1);
     }
 }
