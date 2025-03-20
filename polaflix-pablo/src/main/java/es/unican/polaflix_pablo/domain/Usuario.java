@@ -20,12 +20,25 @@ public class Usuario {
     private boolean tieneCuotaFija = false;
     private final List<Factura> facturas = new ArrayList<>();
 
+    /**
+     * Constructor de la clase Usuario.
+     * 
+     * @param nombreUsuario nombre de usuario unico para identificar al usuario
+     * @param contrasena contrasena del usuario para autenticacion
+     * @param iban numero de cuenta bancaria del usuario en formato IBAN
+     */
     public Usuario(String nombreUsuario, String contrasena, String iban) {
         this.nombreUsuario = nombreUsuario;
         this.contrasena = contrasena;
         this.iban = iban;
     }
 
+    /**
+     * Anade una serie a la lista de series pendientes del usuario.
+     * 
+     * @param serie La serie que se desea anadir a la lista de pendientes
+     * @return true si la serie se anadio correctamente, false si la serie ya estaba pendiente
+     */
     public boolean addSeriePendiente(Serie serie) {
         if (seriesPendientes.contains(serie)) {
             return false;
@@ -35,6 +48,15 @@ public class Usuario {
         return true;
     }
 
+    /**
+     * Marca un capitulo como visto por el usuario.
+     * Si la serie del capitulo esta en la lista de pendientes, la mueve a la lista de series empezadas.
+     * Si el capitulo no se habia visto previamente, lo carga a la factura del mes actual.
+     * 
+     * @param capitulo El capitulo que se va a marcar como visto
+     * @return true si el capitulo se ha marcado como visto correctamente, 
+     *         false si la serie del capitulo no está en la lista de series empezadas
+     */
     public boolean verCapitulo(Capitulo capitulo) {
         Serie s = null;
         SerieEmpezada se = null;
@@ -67,23 +89,41 @@ public class Usuario {
         return true;
     }
 
+    /**
+     * Mueve una serie de la lista de series pendientes a la lista de series empezadas.
+     * Implica crea una nueva SerieEmpezada con la serie proporcionada.
+     * 
+     * @param serie La serie que se desea mover de pendiente a empezada
+     * @return SerieEmpezada La nueva instancia de SerieEmpezada creada
+     */
     private SerieEmpezada movPendienteAEmpezadas(Serie serie) {
-        // Creamos la serie empezada
+        // Creamos la serie empezada y la agregamos a la lista de series empezadas
         SerieEmpezada serieEmpezada = new SerieEmpezada(serie);
-        // La añadimos a la lista de series empezadas
         seriesEmpezadas.add(serieEmpezada);
+
         // La eliminamos de la lista de series pendientes
         seriesPendientes.remove(serie);
+        
         return serieEmpezada;
     }
     
+    /**
+     * Crea una nueva factura asociada al usuario actual.
+     * La factura se anade automaticamente a la lista de facturas del usuario.
+     * 
+     * @return La nueva factura creada
+     */
     public Factura nuevaFactura() {
         Factura f = new Factura(this);
         facturas.add(f);
         return f;
     }
 
-    // Getters y Setters
+    /**
+     * Obtiene la factura del mes actual para el usuario.
+     * 
+     * @return La factura del mes actual existe, null en caso contrario
+     */
     public Factura getFacturaMesActual() {
         int mesActual;
         int mesFactura;
@@ -107,6 +147,12 @@ public class Usuario {
         }
     }
 
+    /**
+     * Busca una serie especifica en la lista de series pendientes del usuario.
+     * 
+     * @param serie La serie que se desea buscar en la lista de series pendientes
+     * @return La serie si se encuentra en la lista de pendientes, null si no se encuentra
+     */
     public Serie getSeriePendiente(Serie serie) {
         for (Serie s : seriesPendientes) {
             if (s.getNombre().equals(serie.getNombre())) {
@@ -116,6 +162,12 @@ public class Usuario {
         return null;
     }
 
+    /**
+     * Busca y devuelve una SerieEmpezada especifica del usuario.
+     * 
+     * @param serie La Serie que se desea buscar entre las series empezadas del usuario
+     * @return La SerieEmpezada correspondiente si existe, null en caso contrario
+     */
     public SerieEmpezada getSerieEmpezada(Serie serie) {
         for (SerieEmpezada se : seriesEmpezadas) {
             if (se.getSerie().getNombre().equals(serie.getNombre())) {
@@ -125,6 +177,7 @@ public class Usuario {
         return null;
     }
 
+    // Getters y Setters
     public String getNombreUsuario() {
         return nombreUsuario;
     }

@@ -6,9 +6,16 @@ public class Cargo {
     private final Date fechaCargo = new Date();
     private final String nombreSerie;
     private final String capituloTemporada;
-    private final float importe;
+    private final double importe;
 
-    public Cargo(String nombreSerie, String capituloTemporada, float importe) {
+    /**
+     * Constructor de la clase Cargo.
+     * 
+     * @param nombreSerie Nombre de la serie asociada al cargo
+     * @param capituloTemporada Capitulo y temporada que genera el cargo
+     * @param importe Importe del cargo
+     */
+    public Cargo(String nombreSerie, String capituloTemporada, double importe) {
         this.nombreSerie = nombreSerie;
         this.capituloTemporada = capituloTemporada;
         this.importe = importe;
@@ -27,7 +34,7 @@ public class Cargo {
         return capituloTemporada;
     }
 
-    public float getImporte() {
+    public double getImporte() {
         return importe;
     }
 }
