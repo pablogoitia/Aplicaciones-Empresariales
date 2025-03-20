@@ -2,9 +2,9 @@ package es.unican.polaflix_pablo.domain;
 
 public class CategoriaSeries {
     private final String nombre;
-    private float importeCapitulo;
+    private double importeCapitulo;
 
-    public CategoriaSeries(String nombre, float importeCapitulo) {
+    public CategoriaSeries(String nombre, double importeCapitulo) {
         this.nombre = nombre;
         this.importeCapitulo = importeCapitulo;
     }
@@ -14,11 +14,11 @@ public class CategoriaSeries {
         return nombre;
     }
 
-    public float getImporteCapitulo() {
+    public double getImporteCapitulo() {
         return importeCapitulo;
     }
 
-    public void setImporteCapitulo(float importeCapitulo) {
+    public void setImporteCapitulo(double importeCapitulo) {
         this.importeCapitulo = importeCapitulo;
     }
 }
