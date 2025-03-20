@@ -14,11 +14,11 @@ public class Serie {
     /**
      * Constructor de la clase Serie
      * 
-     * @param nombre Nombre de la serie
-     * @param sinopsis Resumen de la trama de la serie
+     * @param nombre    Nombre de la serie
+     * @param sinopsis  Resumen de la trama de la serie
      * @param categoria Categoria a la que pertenece la serie
      * @param creadores Nombres de los creadores de la serie
-     * @param actores Nombres de los actores principales de la serie
+     * @param actores   Nombres de los actores principales de la serie
      */
     public Serie(String nombre, String sinopsis, CategoriaSeries categoria, String creadores, String actores) {
         this.nombre = nombre;
@@ -30,7 +30,8 @@ public class Serie {
 
     /**
      * Anade una nueva temporada a la serie.
-     * La temporada se anade en la posicion correspondiente a su numero de temporada.
+     * La temporada se anade en la posicion correspondiente a su numero de
+     * temporada.
      * 
      * @param temporada la temporada a anadir a la serie
      * @see Temporada
@@ -41,8 +42,10 @@ public class Serie {
 
     /**
      * Obtiene una temporada de la serie por su numero
+     * 
      * @param numero El numero de la temporada a obtener
-     * @return La temporada correspondiente al numero especificado, o null si no existe
+     * @return La temporada correspondiente al numero especificado, o null si no
+     *         existe
      */
     public Temporada getTemporada(int numero) {
         try {

@@ -11,8 +11,8 @@ public class Temporada {
     /**
      * Constructor de la clase Temporada.
      * 
-     * @param numeroTemporada numero de la temporada dentro de la serie 
-     * @param serie serie a la que pertenece esta temporada
+     * @param numeroTemporada numero de la temporada dentro de la serie
+     * @param serie           serie a la que pertenece esta temporada
      */
     public Temporada(int numeroTemporada, Serie serie) {
         this.numeroTemporada = numeroTemporada;
@@ -21,6 +21,7 @@ public class Temporada {
 
     /**
      * Anade un nuevo capitulo a la temporada
+     * 
      * @param capitulo El capitulo que se va a anadir a la temporada
      */
     public void addCapitulo(Capitulo capitulo) {

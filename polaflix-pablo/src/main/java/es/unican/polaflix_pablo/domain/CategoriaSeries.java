@@ -7,7 +7,7 @@ public class CategoriaSeries {
     /**
      * Constructor de la clase CategoriaSeries
      * 
-     * @param nombre El nombre de la categoria
+     * @param nombre          El nombre de la categoria
      * @param importeCapitulo El importe por capitulo de la categoria
      */
     public CategoriaSeries(String nombre, double importeCapitulo) {

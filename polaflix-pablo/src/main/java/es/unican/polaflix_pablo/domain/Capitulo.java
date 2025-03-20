@@ -10,9 +10,9 @@ public class Capitulo {
      * Constructor de la clase Capitulo.
      * 
      * @param numeroCapitulo numero del capitulo en la temporada
-     * @param titulo titulo del capitulo
-     * @param descripcion descripcion del capitulo
-     * @param temporada temporada a la que pertenece el capitulo
+     * @param titulo         titulo del capitulo
+     * @param descripcion    descripcion del capitulo
+     * @param temporada      temporada a la que pertenece el capitulo
      */
     public Capitulo(int numeroCapitulo, String titulo, String descripcion, Temporada temporada) {
         this.numeroCapitulo = numeroCapitulo;

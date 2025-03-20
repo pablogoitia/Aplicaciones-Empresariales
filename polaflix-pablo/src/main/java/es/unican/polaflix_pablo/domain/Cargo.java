@@ -11,9 +11,9 @@ public class Cargo {
     /**
      * Constructor de la clase Cargo.
      * 
-     * @param nombreSerie Nombre de la serie asociada al cargo
+     * @param nombreSerie       Nombre de la serie asociada al cargo
      * @param capituloTemporada Capitulo y temporada que genera el cargo
-     * @param importe Importe del cargo
+     * @param importe           Importe del cargo
      */
     public Cargo(String nombreSerie, String capituloTemporada, double importe) {
         this.nombreSerie = nombreSerie;
