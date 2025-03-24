@@ -1,13 +1,13 @@
 package es.unican.polaflix_pablo.domain;
 
-import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 public class SerieEmpezada {
     private final Usuario usuario;
     private final Serie serie;
-    private final Set<CapituloVisto> capitulosVistos = new HashSet<>();
+    private final List<CapituloVisto> capitulosVistos = new LinkedList<>();
 
     /**
      * Constructor de la clase SerieEmpezada.
@@ -44,7 +44,7 @@ public class SerieEmpezada {
         return serie;
     }
 
-    public Set<CapituloVisto> getCapitulosVistos() {
+    public List<CapituloVisto> getCapitulosVistos() {
         return capitulosVistos;
     }
     
