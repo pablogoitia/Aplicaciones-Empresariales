@@ -12,7 +12,9 @@ public class SerieEmpezada {
     /**
      * Constructor de la clase SerieEmpezada.
      * 
-     * @param serie La serie que el usuario ha comenzado a ver
+     * @param usuario El usuario que ha empezado a ver la serie
+     * @param serie   La serie que el usuario ha comenzado a ver
+     * @see Usuario
      * @see Serie
      */
     public SerieEmpezada(Usuario usuario, Serie serie) {
@@ -26,7 +28,6 @@ public class SerieEmpezada {
      * @param capitulo El capitulo que se desea marcar como visto
      * @return true si el capitulo se anadio correctamente a la lista de vistos,
      *         false si el capitulo ya fue visto anteriormente
-     * @see Capitulo
      */
     public boolean addCapituloVisto(Capitulo capitulo) {
         CapituloVisto capituloVisto = new CapituloVisto(capitulo);

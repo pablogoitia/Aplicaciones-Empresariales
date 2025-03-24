@@ -19,6 +19,7 @@ public class Serie {
      * @param categoria Categoria a la que pertenece la serie
      * @param creadores Nombres de los creadores de la serie
      * @param actores   Nombres de los actores principales de la serie
+     * @see CategoriaSeries
      */
     public Serie(String nombre, String sinopsis, CategoriaSeries categoria, String creadores, String actores) {
         this.nombre = nombre;
