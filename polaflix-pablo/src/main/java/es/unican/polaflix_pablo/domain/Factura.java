@@ -88,4 +88,21 @@ public class Factura {
     public List<Cargo> getCargos() {
         return cargos;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (o != null && o instanceof Factura) {
+            Factura f = (Factura) o;
+            return f.getNumeroFactura().equals(numeroFactura);
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return numeroFactura.hashCode();
+    }
 }

@@ -1,5 +1,7 @@
 package es.unican.polaflix_pablo.domain;
 
+import java.util.Objects;
+
 public class CapituloVisto {
     private final Capitulo capitulo;
 
@@ -20,8 +22,19 @@ public class CapituloVisto {
 
     @Override
     public boolean equals(Object o) {
-        CapituloVisto that = (CapituloVisto) o;
+        if (this == o) {
+            return true;
+        }
+        if (o != null && o instanceof CapituloVisto) {
+            CapituloVisto capituloVisto = (CapituloVisto) o;
+            return capitulo.equals(capituloVisto.capitulo);
+        }
+        return false;
+    }
 
-        return getCapitulo().equals(that.capitulo);
+    @Override
+    public int hashCode() {
+        // Hashcode de 100 para evitar colisiones con el hashcode de Capitulo
+        return Objects.hash(capitulo, 100);
     }
 }

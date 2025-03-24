@@ -99,4 +99,21 @@ public class Serie {
     public void setTemporadas(List<Temporada> temporadas) {
         this.temporadas = temporadas;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o != null && o instanceof Serie) {
+            Serie serie = (Serie) o;
+            return nombre.equals(serie.nombre);
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return nombre.hashCode();
+    }
 }

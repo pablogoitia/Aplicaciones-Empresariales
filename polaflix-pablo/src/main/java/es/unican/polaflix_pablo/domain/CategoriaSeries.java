@@ -27,4 +27,21 @@ public class CategoriaSeries {
     public void setImporteCapitulo(double importeCapitulo) {
         this.importeCapitulo = importeCapitulo;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o != null && o instanceof CategoriaSeries) {
+            CategoriaSeries that = (CategoriaSeries) o;
+            return getNombre().equals(that.nombre);
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return nombre.hashCode();
+    }
 }

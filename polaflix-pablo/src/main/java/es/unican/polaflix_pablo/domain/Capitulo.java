@@ -1,5 +1,7 @@
 package es.unican.polaflix_pablo.domain;
 
+import java.util.Objects;
+
 public class Capitulo {
     private final int numeroCapitulo;
     private String titulo;
@@ -13,6 +15,7 @@ public class Capitulo {
      * @param titulo         titulo del capitulo
      * @param descripcion    descripcion del capitulo
      * @param temporada      temporada a la que pertenece el capitulo
+     * @see Temporada
      */
     public Capitulo(int numeroCapitulo, String titulo, String descripcion, Temporada temporada) {
         this.numeroCapitulo = numeroCapitulo;
@@ -44,5 +47,22 @@ public class Capitulo {
 
     public Temporada getTemporada() {
         return temporada;
+    }
+    
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o != null && o instanceof Capitulo) {
+            Capitulo that = (Capitulo) o;
+            return getNumeroCapitulo() == that.numeroCapitulo && getTemporada().equals(that.temporada);
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(numeroCapitulo, temporada);
     }
 }

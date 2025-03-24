@@ -2,6 +2,7 @@ package es.unican.polaflix_pablo.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Temporada {
     private final int numeroTemporada;
@@ -13,6 +14,7 @@ public class Temporada {
      * 
      * @param numeroTemporada numero de la temporada dentro de la serie
      * @param serie           serie a la que pertenece esta temporada
+     * @see Serie
      */
     public Temporada(int numeroTemporada, Serie serie) {
         this.numeroTemporada = numeroTemporada;
@@ -53,5 +55,22 @@ public class Temporada {
 
     public List<Capitulo> getCapitulos() {
         return capitulos;
+    }
+    
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o != null && o instanceof Temporada) {
+            Temporada temporada = (Temporada) o;
+            return numeroTemporada == temporada.numeroTemporada && serie.equals(temporada.serie);
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(numeroTemporada, serie);
     }
 }
