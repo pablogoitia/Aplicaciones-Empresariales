@@ -25,4 +25,35 @@ class CapituloVistoTest {
         assertEquals(capVisto1, capVisto2);
         assertNotEquals(capVisto1, capVisto3);
     }
+
+    @Test
+    void testEqualsAndHashCode() {
+        Serie serie = new Serie("Serie", "Sipnosis", null, "", "");
+        Temporada temp = new Temporada(1, serie);
+        Capitulo cap1 = new Capitulo(1, "Capitulo", "Descripcion", temp);
+        Capitulo cap2 = new Capitulo(2, "Otro capitulo", "Descripcion", temp);
+        
+        CapituloVisto capVisto1 = new CapituloVisto(cap1);
+        CapituloVisto capVisto2 = new CapituloVisto(cap1);
+        CapituloVisto capVisto3 = new CapituloVisto(cap2);
+        
+        // Test equals reflexivo
+        assertTrue(capVisto1.equals(capVisto1));
+        
+        // Test equals simetrico
+        assertTrue(capVisto1.equals(capVisto2));
+        assertTrue(capVisto2.equals(capVisto1));
+        
+        // Test equals transitivo
+        assertFalse(capVisto1.equals(capVisto3));
+        assertFalse(capVisto2.equals(capVisto3));
+        
+        // Test equals con null y otro tipo
+        assertFalse(capVisto1.equals(null));
+        assertFalse(capVisto1.equals(new Object()));
+        
+        // Test hashCode
+        assertEquals(capVisto1.hashCode(), capVisto2.hashCode());
+        assertNotEquals(capVisto1.hashCode(), capVisto3.hashCode());
+    }
 }

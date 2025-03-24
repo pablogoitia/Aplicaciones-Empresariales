@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.List;
+import java.lang.reflect.Field;
 import java.util.Calendar;
 
 public class FacturaTest {
@@ -32,6 +33,39 @@ public class FacturaTest {
         assertEquals(10, cargo.getImporte());
         assertEquals(1, factura.getCargos().size());
         assertEquals(10, factura.getImporteTotal());
+    }
+
+    @Test
+    void testEqualsAndHashCode() throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
+        // Crear dos facturas para el mismo usuario
+        Factura factura1 = new Factura(usuario);
+        
+        // Probar reflexividad
+        assertTrue(factura.equals(factura));
+        assertEquals(factura.hashCode(), factura.hashCode());
+        
+        // Probar simetria con diferentes objetos
+        assertFalse(factura.equals(factura1));
+        assertFalse(factura1.equals(factura));
+        
+        // Probar con null
+        assertFalse(factura.equals(null));
+        
+        // Probar con objeto de diferente tipo
+        assertFalse(factura.equals(new Object()));
+        
+        // Comprobar que facturas con mismo numero son iguales
+        String nF = factura.getNumeroFactura();
+        Factura facturaIgual = new Factura(usuario);
+
+        // Accedemos al campo privado "nombre"
+        Field field = Factura.class.getDeclaredField("numeroFactura");
+
+        field.setAccessible(true); // Permitimos acceso al campo privado
+        field.set(facturaIgual, nF);
+
+        assertTrue(factura.equals(facturaIgual));
+        assertEquals(factura.hashCode(), facturaIgual.hashCode());
     }
 
     @Test
