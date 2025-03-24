@@ -1,9 +1,11 @@
 package es.unican.polaflix_pablo.domain;
 
 import java.util.List;
+import java.util.Set;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedHashSet;
 
 public class Usuario {
     // Datos del usuario
@@ -12,9 +14,9 @@ public class Usuario {
     private String iban;
 
     // Listas de series
-    private final List<Serie> seriesPendientes = new ArrayList<>();
-    private final List<SerieEmpezada> seriesEmpezadas = new ArrayList<>();
-    private final List<Serie> seriesTerminadas = new ArrayList<>();
+    private final Set<Serie> seriesPendientes = new LinkedHashSet<>();
+    private final Set<SerieEmpezada> seriesEmpezadas = new LinkedHashSet<>();
+    private final Set<Serie> seriesTerminadas = new LinkedHashSet<>();
 
     // Informacion de facturacion
     private boolean tieneCuotaFija = false;
@@ -103,7 +105,7 @@ public class Usuario {
      */
     private SerieEmpezada movPendienteAEmpezadas(Serie serie) {
         // Creamos la serie empezada y la agregamos a la lista de series empezadas
-        SerieEmpezada serieEmpezada = new SerieEmpezada(serie);
+        SerieEmpezada serieEmpezada = new SerieEmpezada(this, serie);
         seriesEmpezadas.add(serieEmpezada);
 
         // La eliminamos de la lista de series pendientes
@@ -153,7 +155,7 @@ public class Usuario {
     }
 
     /**
-     * Busca una serie especifica en la lista de series pendientes del usuario.
+     * Busca una serie especifica en el conjunto de series pendientes del usuario.
      * 
      * @param serie La serie que se desea buscar en la lista de series pendientes
      * @return La serie si se encuentra en la lista de pendientes, null si no se
@@ -161,7 +163,7 @@ public class Usuario {
      */
     public Serie getSeriePendiente(Serie serie) {
         for (Serie s : seriesPendientes) {
-            if (s.getNombre().equals(serie.getNombre())) {
+            if (s.equals(serie)) {
                 return s;
             }
         }
@@ -177,7 +179,7 @@ public class Usuario {
      */
     public SerieEmpezada getSerieEmpezada(Serie serie) {
         for (SerieEmpezada se : seriesEmpezadas) {
-            if (se.getSerie().getNombre().equals(serie.getNombre())) {
+            if (se.getSerie().equals(serie)) {
                 return se;
             }
         }
@@ -209,15 +211,15 @@ public class Usuario {
         this.iban = iban;
     }
 
-    public List<Serie> getSeriesPendientes() {
+    public Set<Serie> getSeriesPendientes() {
         return seriesPendientes;
     }
 
-    public List<SerieEmpezada> getSeriesEmpezadas() {
+    public Set<SerieEmpezada> getSeriesEmpezadas() {
         return seriesEmpezadas;
     }
 
-    public List<Serie> getSeriesTerminadas() {
+    public Set<Serie> getSeriesTerminadas() {
         return seriesTerminadas;
     }
 
@@ -231,5 +233,22 @@ public class Usuario {
 
     public List<Factura> getFacturas() {
         return facturas;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (o != null && o instanceof Usuario) {
+            Usuario u = (Usuario) o;
+            return nombreUsuario.equals(u.getNombreUsuario());
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return nombreUsuario.hashCode();
     }
 }
