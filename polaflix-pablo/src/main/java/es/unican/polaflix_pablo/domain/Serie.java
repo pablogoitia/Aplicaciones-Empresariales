@@ -3,12 +3,21 @@ package es.unican.polaflix_pablo.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+
+@Entity
 public class Serie {
     private final String nombre;
     private String sinopsis;
-    private CategoriaSeries categoria;
     private String creadores;
     private String actores;
+
+    @OneToOne
+    private CategoriaSeries categoria;
+
+    @OneToMany(mappedBy = "serie")
     private List<Temporada> temporadas = new ArrayList<>();
 
     /**

@@ -5,12 +5,22 @@ import java.util.Date;
 import java.util.List;
 import java.util.Calendar;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+
+
+@Entity
 public class Factura {
     private static int contadorFacturas = 0;
     private final String numeroFactura;
     private final Date fechaFactura;
     private double importeTotal = 0;
+    
+    @ManyToOne
     private final Usuario usuario;
+
+    @OneToMany
     private final List<Cargo> cargos = new ArrayList<>();
 
     /**

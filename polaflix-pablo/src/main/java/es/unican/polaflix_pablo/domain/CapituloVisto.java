@@ -2,7 +2,12 @@ package es.unican.polaflix_pablo.domain;
 
 import java.util.Objects;
 
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.OneToOne;
+
+@Embeddable
 public class CapituloVisto {
+    @OneToOne
     private final Capitulo capitulo;
 
     /**

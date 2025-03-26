@@ -2,6 +2,9 @@ package es.unican.polaflix_pablo.domain;
 
 import java.util.Date;
 
+import jakarta.persistence.Entity;
+
+@Entity
 public class Cargo {
     private static int nextId = 0;
     private final int id;

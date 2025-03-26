@@ -4,9 +4,20 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+
+@Entity
 public class SerieEmpezada {
+    @ManyToOne
     private final Usuario usuario;
+
+    @OneToOne
     private final Serie serie;
+
+    @OneToMany
     private final List<CapituloVisto> capitulosVistos = new LinkedList<>();
 
     /**

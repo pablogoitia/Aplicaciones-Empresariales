@@ -1,5 +1,8 @@
 package es.unican.polaflix_pablo.domain;
 
+import jakarta.persistence.Entity;
+
+@Entity
 public class CategoriaSeries {
     private final String nombre;
     private double importeCapitulo;

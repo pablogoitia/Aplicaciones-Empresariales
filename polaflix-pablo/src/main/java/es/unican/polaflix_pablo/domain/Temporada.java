@@ -4,9 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+
+@Entity
 public class Temporada {
     private final int numeroTemporada;
+
+    @ManyToOne
     private final Serie serie;
+
+    @OneToMany(mappedBy = "temporada")
     private final List<Capitulo> capitulos = new ArrayList<>();
 
     /**

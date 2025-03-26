@@ -2,11 +2,16 @@ package es.unican.polaflix_pablo.domain;
 
 import java.util.List;
 import java.util.Set;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedHashSet;
 
+@Entity
 public class Usuario {
     // Datos del usuario
     private String nombreUsuario;
@@ -14,12 +19,19 @@ public class Usuario {
     private String iban;
 
     // Listas de series
+    @OneToMany
     private final Set<Serie> seriesPendientes = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "usuario")
     private final Set<SerieEmpezada> seriesEmpezadas = new LinkedHashSet<>();
+
+    @OneToMany
     private final Set<Serie> seriesTerminadas = new LinkedHashSet<>();
 
     // Informacion de facturacion
     private boolean tieneCuotaFija = false;
+    
+    @OneToMany(mappedBy = "usuario")
     private final List<Factura> facturas = new ArrayList<>();
 
     /**

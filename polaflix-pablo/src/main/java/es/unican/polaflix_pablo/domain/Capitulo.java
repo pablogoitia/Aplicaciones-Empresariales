@@ -2,10 +2,16 @@ package es.unican.polaflix_pablo.domain;
 
 import java.util.Objects;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
+
+@Entity
 public class Capitulo {
     private final int numeroCapitulo;
     private String titulo;
     private String descripcion;
+
+    @ManyToOne
     private final Temporada temporada;
 
     /**
