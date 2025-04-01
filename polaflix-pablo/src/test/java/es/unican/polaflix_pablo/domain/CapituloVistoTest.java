@@ -8,7 +8,7 @@ class CapituloVistoTest {
     @Test
     void testConstructorAndGetter() {
         Capitulo capitulo = new Capitulo(1, "Capitulo", "Descripcion", null);
-        CapituloVisto capituloVisto = new CapituloVisto(capitulo);
+        CapituloVisto capituloVisto = new CapituloVisto(null, capitulo);
         
         assertEquals(capitulo, capituloVisto.getCapitulo());
     }
@@ -17,10 +17,11 @@ class CapituloVistoTest {
     void testEquals() {
         Capitulo cap1 = new Capitulo(1, "Capitulo", "Descripcion", null);
         Capitulo cap2 = new Capitulo(2, "Otro capitulo", "Descripcion", null);
+        SerieEmpezada serieEmpezada = new SerieEmpezada(null, null);
 
-        CapituloVisto capVisto1 = new CapituloVisto(cap1);
-        CapituloVisto capVisto2 = new CapituloVisto(cap1);
-        CapituloVisto capVisto3 = new CapituloVisto(cap2);
+        CapituloVisto capVisto1 = new CapituloVisto(serieEmpezada, cap1);
+        CapituloVisto capVisto2 = new CapituloVisto(serieEmpezada, cap1);
+        CapituloVisto capVisto3 = new CapituloVisto(serieEmpezada, cap2);
 
         assertEquals(capVisto1, capVisto2);
         assertNotEquals(capVisto1, capVisto3);
@@ -32,10 +33,11 @@ class CapituloVistoTest {
         Temporada temp = new Temporada(1, serie);
         Capitulo cap1 = new Capitulo(1, "Capitulo", "Descripcion", temp);
         Capitulo cap2 = new Capitulo(2, "Otro capitulo", "Descripcion", temp);
+        SerieEmpezada serieEmpezada = new SerieEmpezada(null, null);
         
-        CapituloVisto capVisto1 = new CapituloVisto(cap1);
-        CapituloVisto capVisto2 = new CapituloVisto(cap1);
-        CapituloVisto capVisto3 = new CapituloVisto(cap2);
+        CapituloVisto capVisto1 = new CapituloVisto(serieEmpezada, cap1);
+        CapituloVisto capVisto2 = new CapituloVisto(serieEmpezada, cap1);
+        CapituloVisto capVisto3 = new CapituloVisto(serieEmpezada, cap2);
         
         // Test equals reflexivo
         assertTrue(capVisto1.equals(capVisto1));
