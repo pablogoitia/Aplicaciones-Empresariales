@@ -31,7 +31,7 @@ public class Factura {
     @ManyToOne
     private final Usuario usuario;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "factura", cascade = CascadeType.ALL)
     private final List<Cargo> cargos = new ArrayList<>();
 
     /**
@@ -54,7 +54,7 @@ public class Factura {
      * @return El cargo creado y anadido a la factura
      */
     public Cargo addCargo(Capitulo capitulo) {
-        Cargo cargo = new Cargo(capitulo.getTemporada().getSerie().getNombre(),
+        Cargo cargo = new Cargo(this, capitulo.getTemporada().getSerie().getNombre(),
                 capitulo.getTemporada().getNumeroTemporada() + "x" + capitulo.getNumeroCapitulo(),
                 capitulo.getTemporada().getSerie().getCategoria().getImporteCapitulo());
         importeTotal += cargo.getImporte();
