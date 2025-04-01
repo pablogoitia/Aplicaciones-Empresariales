@@ -2,11 +2,15 @@ package es.unican.polaflix_pablo.domain;
 
 import java.util.Objects;
 
-import jakarta.persistence.Embeddable;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 
-@Embeddable
+@Entity
 public class CapituloVisto {
+    @ManyToOne
+    private final SerieEmpezada serieEmpezada;
+
     @OneToOne
     private final Capitulo capitulo;
 
@@ -16,7 +20,8 @@ public class CapituloVisto {
      * @param capitulo El capitulo que ha sido visto
      * @see Capitulo
      */
-    public CapituloVisto(Capitulo capitulo) {
+    public CapituloVisto(SerieEmpezada serieEmpezada, Capitulo capitulo) {
+        this.serieEmpezada = serieEmpezada;
         this.capitulo = capitulo;
     }
 
@@ -39,7 +44,6 @@ public class CapituloVisto {
 
     @Override
     public int hashCode() {
-        // Hashcode de 100 para evitar colisiones con el hashcode de Capitulo
-        return Objects.hash(capitulo, 100);
+        return Objects.hash(serieEmpezada, capitulo);
     }
 }
