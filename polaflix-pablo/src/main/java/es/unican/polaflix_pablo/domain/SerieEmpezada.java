@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -17,7 +18,7 @@ public class SerieEmpezada {
     @OneToOne
     private final Serie serie;
 
-    @OneToMany(mappedBy = "serieEmpezada")
+    @OneToMany(mappedBy = "serieEmpezada", cascade = CascadeType.ALL)
     private final List<CapituloVisto> capitulosVistos = new LinkedList<>();
 
     /**

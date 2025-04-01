@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -15,7 +16,7 @@ public class Temporada {
     @ManyToOne
     private final Serie serie;
 
-    @OneToMany(mappedBy = "temporada")
+    @OneToMany(mappedBy = "temporada", cascade = CascadeType.ALL)
     private final List<Capitulo> capitulos = new ArrayList<>();
 
     /**

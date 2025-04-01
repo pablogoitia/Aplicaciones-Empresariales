@@ -3,6 +3,7 @@ package es.unican.polaflix_pablo.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
@@ -17,7 +18,7 @@ public class Serie {
     @OneToOne
     private CategoriaSeries categoria;
 
-    @OneToMany(mappedBy = "serie")
+    @OneToMany(mappedBy = "serie", cascade = CascadeType.ALL)
     private List<Temporada> temporadas = new ArrayList<>();
 
     /**

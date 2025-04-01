@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedHashSet;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 
@@ -21,7 +22,7 @@ public class Usuario {
     @OneToMany
     private final Set<Serie> seriesPendientes = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private final Set<SerieEmpezada> seriesEmpezadas = new LinkedHashSet<>();
 
     @OneToMany

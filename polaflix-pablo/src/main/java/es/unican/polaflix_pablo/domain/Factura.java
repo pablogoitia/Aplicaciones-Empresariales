@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Calendar;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -20,7 +21,7 @@ public class Factura {
     @ManyToOne
     private final Usuario usuario;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private final List<Cargo> cargos = new ArrayList<>();
 
     /**
