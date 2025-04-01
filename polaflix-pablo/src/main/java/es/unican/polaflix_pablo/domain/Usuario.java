@@ -2,14 +2,13 @@ package es.unican.polaflix_pablo.domain;
 
 import java.util.List;
 import java.util.Set;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedHashSet;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Usuario {
