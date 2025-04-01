@@ -1,9 +1,16 @@
 package es.unican.polaflix_pablo.domain;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 @Entity
 public class CategoriaSeries {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
     private final String nombre;
     private double importeCapitulo;
 

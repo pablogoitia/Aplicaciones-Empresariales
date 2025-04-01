@@ -8,13 +8,23 @@ import java.util.Date;
 import java.util.LinkedHashSet;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
 @Entity
 public class Usuario {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     // Datos del usuario
+    @Column(unique = true)
     private String nombreUsuario;
+
     private String contrasena;
     private String iban;
 

@@ -6,15 +6,25 @@ import java.util.List;
 import java.util.Calendar;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
 
 @Entity
 public class Factura {
-    private static int contadorFacturas = 0;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
+    @Column(unique = true)
     private final String numeroFactura;
+
+    private static int contadorFacturas = 0;
     private final Date fechaFactura;
     private double importeTotal = 0;
     
