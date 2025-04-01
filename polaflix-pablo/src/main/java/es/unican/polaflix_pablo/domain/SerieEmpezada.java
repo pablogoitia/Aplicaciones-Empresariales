@@ -17,7 +17,7 @@ public class SerieEmpezada {
     @OneToOne
     private final Serie serie;
 
-    @OneToMany
+    @OneToMany(mappedBy = "serieEmpezada")
     private final List<CapituloVisto> capitulosVistos = new LinkedList<>();
 
     /**
@@ -41,11 +41,11 @@ public class SerieEmpezada {
      *         false si el capitulo ya fue visto anteriormente
      */
     public boolean addCapituloVisto(Capitulo capitulo) {
-        CapituloVisto capituloVisto = new CapituloVisto(capitulo);
+        CapituloVisto capituloVisto = new CapituloVisto(this, capitulo);
 
         // Si el capitulo no esta en la lista de capitulos vistos, lo anade
         if (!capitulosVistos.contains(capituloVisto)) {
-            capitulosVistos.add(new CapituloVisto(capitulo));
+            capitulosVistos.add(capituloVisto);
             return true;
         }
         return false;
