@@ -41,7 +41,8 @@ public class Usuario {
     // Informacion de facturacion
     private boolean tieneCuotaFija = false;
     
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "usuario", cascade={CascadeType.PERSIST, CascadeType.MERGE,
+        CascadeType.REFRESH, CascadeType.DETACH})
     private final List<Factura> facturas = new ArrayList<>();
 
     /**
