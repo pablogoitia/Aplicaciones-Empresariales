@@ -59,6 +59,17 @@ public class SerieEmpezada {
         return false;
     }
 
+    /**
+     * Comprueba si es el ultimo capitulo de la serie.
+     * @return true si es el ultimo capitulo, false en caso contrario
+     */
+    public boolean esUltimoCapitulo(Capitulo capitulo) {
+        Serie s = capitulo.getTemporada().getSerie();
+        Capitulo ultimoCapitulo = s.getTemporadas().getLast().getCapitulos().getLast();
+
+        return capitulo.equals(ultimoCapitulo);
+    }
+
     // Getters
     public Serie getSerie() {
         return serie;

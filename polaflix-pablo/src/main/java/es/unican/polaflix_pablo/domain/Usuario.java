@@ -35,8 +35,8 @@ public class Usuario {
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private final Set<SerieEmpezada> seriesEmpezadas = new LinkedHashSet<>();
 
-    @OneToMany
-    private final Set<Serie> seriesTerminadas = new LinkedHashSet<>();
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    private final Set<SerieEmpezada> seriesTerminadas = new LinkedHashSet<>();
 
     // Informacion de facturacion
     private boolean tieneCuotaFija = false;
@@ -95,21 +95,36 @@ public class Usuario {
     public boolean verCapitulo(Capitulo capitulo) {
         Serie s = null;
         SerieEmpezada se = null;
+        SerieEmpezada st = null;
+        SerieEmpezada serieEmpezada = null;
         boolean no_visto = false;
         Factura f;
 
-        // Si la serie esta en la lista de pendientes, la movemos a la lista de
-        // empezadas
+        // Si la serie esta en la lista de pendientes, la movemos a la lista de empezadas
         if ((s = getSeriePendiente(capitulo.getTemporada().getSerie())) != null) {
-            se = movPendienteAEmpezadas(s);
+            serieEmpezada = movPendienteAEmpezadas(s);
         }
 
-        // Si la serie no esta en la lista de empezadas, devolvemos false
-        if ((se = getSerieEmpezada(capitulo.getTemporada().getSerie())) == null) {
-            return false;
+        // Si la serie no esta ni pendiente, ni empezada, ni terminada, devolvemos false
+        if (serieEmpezada == null) {
+            if ((se = getSerieEmpezada(capitulo.getTemporada().getSerie())) != null) {
+                serieEmpezada = se;
+            }
+            else if ((st = getSerieTerminada(capitulo.getTemporada().getSerie())) != null) {
+                serieEmpezada = st;
+            }
+            else {
+                return false;
+            }
         }
 
-        no_visto = se.addCapituloVisto(capitulo);
+        // Si la serie esta empezada y el capitulo es el ultimo, la movemos a la lista de terminadas
+        if (serieEmpezada.esUltimoCapitulo(capitulo)) {
+            seriesTerminadas.add(serieEmpezada);
+            seriesEmpezadas.remove(serieEmpezada);
+        }
+
+        no_visto = serieEmpezada.addCapituloVisto(capitulo);
 
         // Si el capitulo no se habia visto antes, se agrega el cargo a la factura
         if (no_visto) {
@@ -214,6 +229,23 @@ public class Usuario {
         }
         return null;
     }
+    
+    /**
+     * Busca y devuelve una SerieEmpezada especifica dentro de la lista de 
+     * SeriesTerminadas.
+     * 
+     * @param serie La Serie que se desea buscar entre las series terminadas del
+     *              usuario
+     * @return La SerieEmpezada correspondiente si existe, null en caso contrario
+     */
+    public SerieEmpezada getSerieTerminada(Serie serie) {
+        for (SerieEmpezada se : seriesTerminadas) {
+            if (se.getSerie().equals(serie)) {
+                return se;
+            }
+        }
+        return null;
+    }
 
     // Getters y Setters
     public String getNombreUsuario() {
@@ -248,7 +280,7 @@ public class Usuario {
         return seriesEmpezadas;
     }
 
-    public Set<Serie> getSeriesTerminadas() {
+    public Set<SerieEmpezada> getSeriesTerminadas() {
         return seriesTerminadas;
     }
 

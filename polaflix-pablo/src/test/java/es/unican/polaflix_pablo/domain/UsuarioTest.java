@@ -140,6 +140,41 @@ public class UsuarioTest {
     }
 
     @Test
+    void testGetSerieTerminada() {
+        // Prueba cuando la lista de series terminadas esta vacia
+        assertTrue(usuario.getSeriesTerminadas().isEmpty());
+        
+        // Prueba cuando una serie esta en la lista de terminadas
+        usuario.addSeriePendiente(serie1);
+        usuario.verCapitulo(capitulo1); // Esto mueve la serie a empezadas
+        usuario.verCapitulo(capitulo2); // Esto marca la serie como terminada
+        assertFalse(usuario.getSeriesTerminadas().isEmpty());
+
+        // Prueba con una serie que no esta en la lista
+        Serie serie2 = new Serie("Serie 2", "Sipnosis", categoria, "Creadores", "Actores");
+        assertNull(usuario.getSerieTerminada(serie2));
+    }
+
+    @Test
+    void testVerCapituloSerieTerminada() {
+        // Agrega serie a la lista de terminadas
+        usuario.addSeriePendiente(serie1);
+        usuario.verCapitulo(capitulo2); // Esto marca la serie como terminada
+        assertFalse(usuario.getSeriesTerminadas().isEmpty());
+        
+        usuario.verCapitulo(capitulo1); // Capitulo visto en serie terminada
+        assertEquals(2, usuario.getFacturas().getLast().getCargos().size());
+
+        // Obtiene los capitulos vistos de la serie terminada
+        SerieEmpezada serieEmpezada = usuario.getSerieTerminada(serie1);
+        assertNotNull(serieEmpezada);
+        assertEquals(serie1.getNombre(), serieEmpezada.getSerie().getNombre());
+
+        // Verifica que el capitulo visto se ha añadido a la lista de capitulos vistos
+        assertEquals(2, serieEmpezada.getCapitulosVistos().size());
+    }
+
+    @Test
     void testEquals() {
         // Prueba equals con el mismo objeto
         assertTrue(usuario.equals(usuario));
@@ -157,6 +192,14 @@ public class UsuarioTest {
         // Prueba equals con nombre de usuario diferente
         Usuario usuarioDiferente = new Usuario("usuario2", "password", "ES1234567890");
         assertFalse(usuario.equals(usuarioDiferente));
+    }
+
+    @Test
+    void testConstructorVacio() {
+        Usuario usuarioVacio = new Usuario();
+        assertNull(usuarioVacio.getNombreUsuario());
+        assertNull(usuarioVacio.getContrasena());
+        assertNull(usuarioVacio.getIban());
     }
     
     @Test
