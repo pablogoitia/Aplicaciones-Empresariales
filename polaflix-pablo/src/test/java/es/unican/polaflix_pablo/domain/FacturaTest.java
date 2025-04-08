@@ -45,8 +45,10 @@ public class FacturaTest {
         assertEquals(factura.hashCode(), factura.hashCode());
         
         // Probar simetria con diferentes objetos
-        assertFalse(factura.equals(factura1));
-        assertFalse(factura1.equals(factura));
+        // Se espera que sean iguales porque el numero de factura es el mismo, al no contemplar
+        // el caso de que se puedan crear dos facturas para el mismo usuario en el mismo mes.
+        assertTrue(factura.equals(factura1));
+        assertTrue(factura1.equals(factura));
         
         // Probar con null
         assertFalse(factura.equals(null));

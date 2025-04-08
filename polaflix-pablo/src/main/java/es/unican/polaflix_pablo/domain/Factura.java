@@ -24,7 +24,6 @@ public class Factura {
     @Column(unique = true)
     private final String numeroFactura;
 
-    private static int contadorFacturas = 0;
     private final Date fechaFactura;
     private double importeTotal = 0;
     
@@ -42,8 +41,7 @@ public class Factura {
      */
     public Factura(Usuario usuario) {
         fechaFactura = ultimoDiaMesActual();
-        numeroFactura = "POLAFLIX_" + getMes() + "_" + contadorFacturas;
-        contadorFacturas++;
+        numeroFactura = "POLAFLIX_" + getMes() + "_" + getAnio() + "_" + usuario.getId();
         this.usuario = usuario;
     }
 
@@ -90,6 +88,18 @@ public class Factura {
         Calendar cal = Calendar.getInstance();
         cal.setTime(fechaFactura);
         return cal.get(Calendar.MONTH) + 1;
+    }
+
+    /**
+     * Obtiene el anio de la factura.
+     * El metodo utiliza la fecha de factura almacenada y extrae el anio.
+     * 
+     * @return el numero del anio (YYYY) de la factura
+     */
+    public int getAnio() {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(fechaFactura);
+        return cal.get(Calendar.YEAR);
     }
 
     // Getters y Setters

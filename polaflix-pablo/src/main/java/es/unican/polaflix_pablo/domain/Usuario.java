@@ -249,6 +249,10 @@ public class Usuario {
     }
 
     // Getters y Setters
+    public Long getId() {
+        return id;
+    }
+    
     public String getNombreUsuario() {
         return nombreUsuario;
     }
