@@ -9,7 +9,7 @@ import es.unican.polaflix_pablo.repositories.*;
 
 @Component
 public class AppFeeder implements CommandLineRunner {
-	
+
 	@Autowired
 	protected UsuarioRepository ur;
 	@Autowired
@@ -17,19 +17,23 @@ public class AppFeeder implements CommandLineRunner {
 	@Autowired
 	protected CategoriaSeriesRepository csr;
 
-	
+	private Usuario u1, u2;
+	private Serie s1, s2, s3;
+
 	@Override
 	public void run(String... args) throws Exception {
 		feedUsuarios();
 		feedCategoriasSeries();
 		feedSeries();
-		
+		feedListasSeriesUsuario();
+		testSimple();
+
 		System.out.println("Application feeded");
 	}
 
 	private void feedUsuarios() {
-		Usuario u1 = new Usuario("pablogoitia", "123456", "ES7921000813610123456789");
-		Usuario u2 = new Usuario("johndoe","789123", "ES6000491500051234567892");
+		u1 = new Usuario("pablogoitia", "123456", "ES7921000813610123456789");
+		u2 = new Usuario("johndoe", "789123", "ES6000491500051234567892");
 		ur.save(u1);
 		ur.save(u2);
 	}
@@ -43,13 +47,13 @@ public class AppFeeder implements CommandLineRunner {
 		csr.save(catSer2);
 		csr.save(catSer3);
 	}
-	
+
 	private void feedSeries() {
-		Serie s1 = new Serie("Breaking Bad", "Un profesor de quimica se convierte en fabricante de metanfetamina", 
+		s1 = new Serie("Breaking Bad", "Un profesor de quimica se convierte en fabricante de metanfetamina",
 				csr.findById(1L).get(), "Vince Gilligan", "Bryan Cranston, Aaron Paul");
-		Serie s2 = new Serie("Game of Thrones", "La lucha por el trono de hierro en los siete reinos de Westeros", 
+		s2 = new Serie("Game of Thrones", "La lucha por el trono de hierro en los siete reinos de Westeros",
 				csr.findById(2L).get(), "David Benioff, D.B. Weiss", "Emilia Clarke, Kit Harington");
-		Serie s3 = new Serie("Stranger Things", "Un grupo de amigos se enfrenta a fuerzas sobrenaturales en su pueblo", 
+		s3 = new Serie("Stranger Things", "Un grupo de amigos se enfrenta a fuerzas sobrenaturales en su pueblo",
 				csr.findById(3L).get(), "The Duffer Brothers", "Winona Ryder, David Harbour");
 
 		// Añadir temporadas a las series
@@ -76,7 +80,8 @@ public class AppFeeder implements CommandLineRunner {
 		s2t1.addCapitulo(s2t1c1);
 		s2t2.addCapitulo(s2t2c1);
 		Capitulo s3t1c1 = new Capitulo(1, "Chapter One: The Vanishing of Will Byers", "El piloto de la serie", s3t1);
-		Capitulo s3t2c1 = new Capitulo(1, "Chapter Two: The Weirdo on Maple Street", "El primer capitulo de la segunda temporada", s3t2);
+		Capitulo s3t2c1 = new Capitulo(1, "Chapter Two: The Weirdo on Maple Street",
+				"El primer capitulo de la segunda temporada", s3t2);
 		s3t1.addCapitulo(s3t1c1);
 		s3t2.addCapitulo(s3t2c1);
 
@@ -84,5 +89,46 @@ public class AppFeeder implements CommandLineRunner {
 		sr.save(s1);
 		sr.save(s2);
 		sr.save(s3);
+	}
+
+	private void feedListasSeriesUsuario() {
+		/**
+		 * De las tres series del sistema:
+		 * - La primera estara en la lista de terminadas.
+		 * - La segunda estara en la lista de empezadas.
+		 * - La tercera estara en la lista de pendientes.
+		 */
+
+		// Todas las series estan pendientes
+		u1.addSeriePendiente(s1);
+		u1.addSeriePendiente(s2);
+		u1.addSeriePendiente(s3);
+
+		// Empezamos a ver la segunda serie
+		u1.verCapitulo(s2.getTemporada(1).getCapitulo(1));
+
+		// Terminamos la primera serie
+		u1.verCapitulo(s1.getTemporada(2).getCapitulo(1));
+
+		// Guarda todo
+		ur.save(u1);
+	}
+
+	private void testSimple() {
+		// Test simple para comprobar que la aplicacion funciona
+		System.out.println("Usuario 1: " + u1.getNombreUsuario());
+		System.out.println("Series pendientes: ");
+		for (Serie s : u1.getSeriesPendientes()) {
+			System.out.println("- " + s.getNombre());
+		}
+		System.out.println("Series empezadas: ");
+		for (SerieEmpezada se : u1.getSeriesEmpezadas()) {
+			System.out.println("- " + se.getSerie().getNombre());
+		}
+		System.out.println("Series terminadas: ");
+		for (SerieEmpezada st : u1.getSeriesTerminadas()) {
+			System.out.println("- " + st.getSerie().getNombre());
+		}
+		System.out.println();
 	}
 }
