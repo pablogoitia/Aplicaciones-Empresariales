@@ -1,5 +1,6 @@
-package es.unican.polaflix_pablo.domain;
+package es.unican.polaflix_pablo.repositories;
 
+import es.unican.polaflix_pablo.domain.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
