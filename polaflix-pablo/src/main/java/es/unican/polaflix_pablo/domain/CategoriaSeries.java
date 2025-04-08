@@ -25,6 +25,12 @@ public class CategoriaSeries {
         this.importeCapitulo = importeCapitulo;
     }
 
+    // Constructor vacio para JPA
+    public CategoriaSeries() {
+        this.nombre = null;
+        this.importeCapitulo = 0.0;
+    }
+
     // Getters y Setters
     public String getNombre() {
         return nombre;

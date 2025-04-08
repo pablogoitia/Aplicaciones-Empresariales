@@ -46,6 +46,15 @@ public class Serie {
         this.actores = actores;
     }
 
+    // Constructor vacio para JPA
+    public Serie() {
+        this.nombre = null;
+        this.sinopsis = null;
+        this.categoria = null;
+        this.creadores = null;
+        this.actores = null;
+    }
+
     /**
      * Anade una nueva temporada a la serie.
      * La temporada se anade en la posicion correspondiente a su numero de

@@ -57,6 +57,13 @@ public class Usuario {
         this.iban = iban;
     }
 
+    // Constructor vacio para JPA
+    public Usuario() {
+        this.nombreUsuario = null;
+        this.contrasena = null;
+        this.iban = null;
+    }
+
     /**
      * Anade una serie a la lista de series pendientes del usuario.
      * 
