@@ -41,6 +41,12 @@ public class SerieEmpezada {
         this.serie = serie;
     }
 
+    // Constructor vacio para JPA
+    public SerieEmpezada() {
+        this.usuario = null;
+        this.serie = null;
+    }
+
     /**
      * Anade un capitulo a la lista de capitulos vistos.
      * 

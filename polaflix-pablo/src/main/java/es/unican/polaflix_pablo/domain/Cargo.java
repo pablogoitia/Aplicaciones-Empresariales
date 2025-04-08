@@ -37,6 +37,14 @@ public class Cargo {
         this.importe = importe;
     }
 
+    // Constructor vacio para JPA
+    public Cargo() {
+        this.factura = null;
+        this.nombreSerie = null;
+        this.capituloTemporada = null;
+        this.importe = 0.0;
+    }
+
     // Getters
     public Date getFechaCargo() {
         return fechaCargo;

@@ -32,6 +32,12 @@ public class CapituloVisto {
         this.capitulo = capitulo;
     }
 
+    // Constructor vacio para JPA
+    public CapituloVisto() {
+        this.serieEmpezada = null;
+        this.capitulo = null;
+    }
+
     // Getter
     public Capitulo getCapitulo() {
         return capitulo;

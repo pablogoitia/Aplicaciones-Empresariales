@@ -47,6 +47,13 @@ public class Factura {
         this.usuario = usuario;
     }
 
+    // Constructor vacio para JPA
+    public Factura() {
+        fechaFactura = null;
+        numeroFactura = null;
+        this.usuario = null;
+    }
+
     /**
      * Anade un nuevo cargo a la factura basado en el capitulo visualizado.
      * 

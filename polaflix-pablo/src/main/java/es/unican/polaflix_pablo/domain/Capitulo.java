@@ -37,6 +37,14 @@ public class Capitulo {
         this.temporada = temporada;
     }
 
+    // Constructor vacio para JPA
+    public Capitulo() {
+        this.numeroCapitulo = 0;
+        this.titulo = null;
+        this.descripcion = null;
+        this.temporada = null;
+    }
+
     // Getters y Setters
     public int getNumeroCapitulo() {
         return numeroCapitulo;

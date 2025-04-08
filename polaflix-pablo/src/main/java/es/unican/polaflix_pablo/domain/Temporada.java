@@ -38,6 +38,12 @@ public class Temporada {
         this.serie = serie;
     }
 
+    // Constructor vacio para JPA
+    public Temporada() {
+        this.numeroTemporada = 0;
+        this.serie = null;
+    }
+
     /**
      * Anade un nuevo capitulo a la temporada
      * 
