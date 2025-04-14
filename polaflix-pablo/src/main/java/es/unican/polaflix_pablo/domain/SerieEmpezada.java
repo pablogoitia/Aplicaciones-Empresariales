@@ -20,7 +20,7 @@ public class SerieEmpezada {
     private Long id;
     
     @ManyToOne
-    private final Usuario usuario;
+    private Usuario usuario;
 
     @OneToOne
     private final Serie serie;
