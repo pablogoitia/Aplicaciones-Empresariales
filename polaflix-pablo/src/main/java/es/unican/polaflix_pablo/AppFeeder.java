@@ -1,5 +1,8 @@
 package es.unican.polaflix_pablo;
 
+import java.util.List;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -128,6 +131,24 @@ public class AppFeeder implements CommandLineRunner {
 		System.out.println("Series terminadas: ");
 		for (SerieEmpezada st : u1.getSeriesTerminadas()) {
 			System.out.println("- " + st.getSerie().getNombre());
+		}
+		System.out.println();
+
+		// Muestra la lista de usuarios
+		System.out.println("Lista de usuarios:");
+		for (Usuario u : ur.findAll()) {
+			System.out.println("- " + u.getNombreUsuario());
+		}
+		System.out.println();
+
+		// Eliminar el primer usuario
+		ur.deleteById(1L);
+		System.out.println("Usuario 1 eliminado");
+
+		// Muestra la lista de usuarios restantes
+		System.out.println("Usuarios restantes:");
+		for (Usuario u : ur.findAll()) {
+			System.out.println("- " + u.getNombreUsuario());
 		}
 		System.out.println();
 	}

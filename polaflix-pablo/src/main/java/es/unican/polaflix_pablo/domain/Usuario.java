@@ -2,6 +2,10 @@ package es.unican.polaflix_pablo.domain;
 
 import java.util.List;
 import java.util.Set;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -41,8 +45,8 @@ public class Usuario {
     // Informacion de facturacion
     private boolean tieneCuotaFija = false;
     
-    @OneToMany(mappedBy = "usuario", cascade={CascadeType.PERSIST, CascadeType.MERGE,
-        CascadeType.REFRESH, CascadeType.DETACH})
+    @OneToMany(mappedBy = "usuario", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private final List<Factura> facturas = new ArrayList<>();
 
     /**

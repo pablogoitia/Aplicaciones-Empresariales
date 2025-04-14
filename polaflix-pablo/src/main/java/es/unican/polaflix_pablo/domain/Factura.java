@@ -11,6 +11,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
@@ -28,7 +30,12 @@ public class Factura {
     private double importeTotal = 0;
     
     @ManyToOne
-    private final Usuario usuario;
+    @JoinTable(
+        name = "Usuario_Factura",
+        joinColumns = @JoinColumn(name = "factura"),
+        inverseJoinColumns = @JoinColumn(name = "usuario")
+    )
+    private Usuario usuario; // Con tabla intermedia para evitar eliminacion en cascada
 
     @OneToMany(mappedBy = "factura", cascade = CascadeType.ALL)
     private final List<Cargo> cargos = new ArrayList<>();
