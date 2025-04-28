@@ -19,7 +19,7 @@ public class FacturaTest {
     void setUp() {
         usuario = new Usuario("testUser", "password", "ES1234567890");
         factura = new Factura(usuario);
-        serie = new Serie("Serie1", "Sipnosis", new CategoriaSeries("TestCategoria", 10), null, null);
+        serie = new Serie("Serie1", "Sinopsis", new CategoriaSeries("TestCategoria", 10), null, null);
         temporada = new Temporada(1, serie);
         capitulo1 = new Capitulo(1, "Capitulo1", "Descripcion", temporada);
         capitulo2 = new Capitulo(2, "Capitulo2", "Descripcion", temporada);

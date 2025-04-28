@@ -29,7 +29,7 @@ class CapituloVistoTest {
 
     @Test
     void testEqualsAndHashCode() {
-        Serie serie = new Serie("Serie", "Sipnosis", null, "", "");
+        Serie serie = new Serie("Serie", "Sinopsis", null, "", "");
         Temporada temp = new Temporada(1, serie);
         Capitulo cap1 = new Capitulo(1, "Capitulo", "Descripcion", temp);
         Capitulo cap2 = new Capitulo(2, "Otro capitulo", "Descripcion", temp);

@@ -14,7 +14,7 @@ public class SerieEmpezadaTest {
     
     @BeforeEach
     void setUp() {
-        serie = new Serie("Serie1", "Sipnosis", new CategoriaSeries("TestCategoria", 10), null, null);
+        serie = new Serie("Serie1", "Sinopsis", new CategoriaSeries("TestCategoria", 10), null, null);
         temporada = new Temporada(1, serie);
         capitulo1 = new Capitulo(1, "Capitulo1", "Descripcion", temporada);
         capitulo2 = new Capitulo(2, "Capitulo2", "Descripcion", temporada);
@@ -55,7 +55,7 @@ public class SerieEmpezadaTest {
     void testEqualsAndHashCode() {
         Usuario usuario1 = new Usuario("usuario1", "password", "ES1234567890");
         Usuario usuario2 = new Usuario("usuario2", "password", "ES1234567890");
-        Serie serie2 = new Serie("Serie2", "Sipnosis2", new CategoriaSeries("TestCategoria2", 20), null, null);
+        Serie serie2 = new Serie("Serie2", "Sinopsis2", new CategoriaSeries("TestCategoria2", 20), null, null);
 
         SerieEmpezada serieEmpezada1 = new SerieEmpezada(usuario1, serie);
         SerieEmpezada serieEmpezada2 = new SerieEmpezada(usuario1, serie);
