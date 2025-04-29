@@ -26,7 +26,7 @@ public class AppFeeder implements CommandLineRunner {
 		feedCategoriasSeries();
 		feedSeries();
 		feedListasSeriesUsuario();
-		testSimple();
+		// testSimple();
 
 		System.out.println("Application feeded");
 	}
