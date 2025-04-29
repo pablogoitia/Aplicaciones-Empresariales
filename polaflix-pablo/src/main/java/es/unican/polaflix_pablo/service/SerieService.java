@@ -1,0 +1,50 @@
+package es.unican.polaflix_pablo.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import es.unican.polaflix_pablo.domain.Serie;
+import es.unican.polaflix_pablo.repositories.SerieRepository;
+
+@Service
+public class SerieService {
+
+    @Autowired
+    private SerieRepository sr;
+
+    /**
+     * Devuelve la lista de todas las series.
+     * @return List<Serie> - Lista de series.
+     */
+    public List<Serie> getAllSeries() {
+        return sr.findAll();
+    }
+    
+    /**
+     * Devuelve la primera serie que coincide total o parcialmente con el nombre dado.
+     * @return List<Serie> - Lista de series que coinciden con el nombre dado.
+     */
+    public List<Serie> getSeriesByName(String name) {
+        return sr.findByNombreStartingWith(name);
+    }
+
+    /**
+     * Devuelve la serie con el id dado.
+     * @return Serie - Serie con el id dado. Si no existe, devuelve null.
+     */
+    public Serie getSerieById(Long id) {
+        return sr.findById(id).orElse(null);
+    }
+
+    /**
+     * Devuelve una lista de series cuyo nombre empieza por la inicial dada.
+     * @param inicial - Inicial del nombre de la serie.
+     * @return List<Serie> - Lista de series.
+     */
+    public List<Serie> getSeriesByInitial(String inicial) {
+        String i = "" + inicial.toUpperCase().charAt(0);
+        return sr.findByNombreStartingWith(i);
+    }
+}

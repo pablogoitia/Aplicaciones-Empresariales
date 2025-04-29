@@ -3,6 +3,9 @@ package es.unican.polaflix_pablo.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import es.unican.polaflix_pablo.service.Views;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,17 +17,25 @@ import jakarta.persistence.OneToOne;
 
 @Entity
 public class Serie {
+    @JsonView({Views.Serie.class})
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
+    @JsonView({Views.Serie.class})
     @Column(unique = true)
     private final String nombre;
     
+    @JsonView({Views.Serie.class})
     private String sinopsis;
+
+    @JsonView({Views.Serie.class})
     private String creadores;
+
+    @JsonView({Views.Serie.class})
     private String actores;
 
+    @JsonView({Views.Serie.class})
     @OneToOne
     private CategoriaSeries categoria;
 

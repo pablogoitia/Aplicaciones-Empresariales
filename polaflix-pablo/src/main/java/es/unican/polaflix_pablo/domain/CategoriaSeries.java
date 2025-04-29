@@ -1,5 +1,8 @@
 package es.unican.polaflix_pablo.domain;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import es.unican.polaflix_pablo.service.Views;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,6 +14,7 @@ public class CategoriaSeries {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
+    @JsonView({Views.Serie.class})
     private final String nombre;
     private double importeCapitulo;
 
