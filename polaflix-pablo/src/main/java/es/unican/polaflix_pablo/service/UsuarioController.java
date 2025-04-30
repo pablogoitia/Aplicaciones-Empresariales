@@ -1,7 +1,7 @@
 package es.unican.polaflix_pablo.service;
 
 import java.util.List;
-import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +18,6 @@ import es.unican.polaflix_pablo.domain.Capitulo;
 import es.unican.polaflix_pablo.domain.CapituloVisto;
 import es.unican.polaflix_pablo.domain.Factura;
 import es.unican.polaflix_pablo.domain.Serie;
-import es.unican.polaflix_pablo.domain.SerieEmpezada;
 import es.unican.polaflix_pablo.domain.Usuario;
 
 @RestController
@@ -27,12 +26,6 @@ public class UsuarioController {
 
     @Autowired
     private UsuarioService usuarioService;
-
-    @GetMapping
-    @JsonView({Views.Usuario.class})
-    public ResponseEntity<?> getUsuarios() {
-        return ResponseEntity.status(401).build();
-    }
 
     @GetMapping("/{nombreUsuario}")
     @JsonView({Views.Usuario.class})
@@ -49,54 +42,8 @@ public class UsuarioController {
         return result;
     }
 
-    @GetMapping("/{nombreUsuario}/series-pendientes")
-    @JsonView({Views.ListaSeries.class})
-    public ResponseEntity<Set<Serie>> getSeriesPendientesUsuario(@PathVariable String nombreUsuario) {
-        ResponseEntity<Set<Serie>> result;
-        Set<Serie> series = usuarioService.getSeriesPendientesUsuario(nombreUsuario);
-
-        if (series != null) {
-            result = ResponseEntity.ok(series);
-        } else {
-            result = ResponseEntity.badRequest().build();
-        }
-
-        return result;
-    }
-
-    @GetMapping("/{nombreUsuario}/series-empezadas")
-    @JsonView({Views.ListaSeries.class})
-    public ResponseEntity<Set<SerieEmpezada>> getSeriesEmpezadasUsuario(@PathVariable String nombreUsuario) {
-        ResponseEntity<Set<SerieEmpezada>> result;
-        Set<SerieEmpezada> series = usuarioService.getSeriesEmpezadasUsuario(nombreUsuario);
-
-        if (series != null) {
-            result = ResponseEntity.ok(series);
-        } else {
-            result = ResponseEntity.badRequest().build();
-        }
-
-        return result;
-    }
-
-    @GetMapping("/{nombreUsuario}/series-terminadas")
-    @JsonView({Views.ListaSeries.class})
-    public ResponseEntity<Set<SerieEmpezada>> getSeriesTerminadasUsuario(@PathVariable String nombreUsuario) {
-        ResponseEntity<Set<SerieEmpezada>> result;
-        Set<SerieEmpezada> series = usuarioService.getSeriesTerminadasUsuario(nombreUsuario);
-
-        if (series != null) {
-            result = ResponseEntity.ok(series);
-        } else {
-            result = ResponseEntity.badRequest().build();
-        }
-
-        return result;
-    }
-
     @GetMapping("/{nombreUsuario}/capitulos-vistos/{idSerie}")
-    @JsonView({Views.CapitulosVistos.class})
-    public ResponseEntity<List<CapituloVisto>> getCapitulosVistosUsuarioSerie(@PathVariable String nombreUsuario, @PathVariable Long idSerie, @RequestParam(required = false) Integer numTemporada) {
+    public ResponseEntity<List<Long>> getCapitulosVistosUsuarioSerie(@PathVariable String nombreUsuario, @PathVariable Long idSerie, @RequestParam(required = false) Integer numTemporada) {
         List<CapituloVisto> capitulos = usuarioService.getCapitulosVistosUsuarioSerie(nombreUsuario, idSerie);
 
         if (capitulos == null) {
@@ -107,7 +54,11 @@ public class UsuarioController {
             capitulos.removeIf(c -> c.getCapitulo().getTemporada().getNumeroTemporada() != numTemporada);
         }
 
-        return ResponseEntity.ok(capitulos);
+        List<Long> numerosCapitulos = capitulos.stream()
+            .map(cv -> cv.getCapitulo().getId())
+            .collect(Collectors.toList());
+
+        return ResponseEntity.ok(numerosCapitulos);
     }
 
     @GetMapping("/{nombreUsuario}/capitulos-vistos/{idSerie}/ultima-temporada")
@@ -158,12 +109,9 @@ public class UsuarioController {
     @JsonView({Views.Factura.class})
     public ResponseEntity<List<Factura>> getFactura(@PathVariable String nombreUsuario, @RequestParam(required = false) Integer mes, @RequestParam(required = false) Integer anio) {
         ResponseEntity<List<Factura>> result;
-        Usuario u = usuarioService.getUsuario(nombreUsuario);
         List<Factura> facturas = null;
 
-        if (u == null) {
-            return ResponseEntity.notFound().build();
-        } else if ((mes == null) != (anio == null)) {
+        if ((mes == null) != (anio == null)) {
             return ResponseEntity.badRequest().build();
         }
         

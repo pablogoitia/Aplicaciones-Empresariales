@@ -25,7 +25,7 @@ public class SerieEmpezada {
     @ManyToOne
     private Usuario usuario;
 
-    @JsonView({Views.ListaSeries.class})
+    @JsonView({Views.Usuario.class})
     @OneToOne
     private final Serie serie;
 

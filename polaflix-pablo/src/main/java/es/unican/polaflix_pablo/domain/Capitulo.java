@@ -55,6 +55,10 @@ public class Capitulo {
     }
 
     // Getters y Setters
+    public Long getId() {
+        return id;
+    }
+
     public int getNumeroCapitulo() {
         return numeroCapitulo;
     }

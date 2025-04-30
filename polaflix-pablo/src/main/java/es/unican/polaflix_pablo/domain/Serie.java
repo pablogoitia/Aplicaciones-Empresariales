@@ -17,12 +17,12 @@ import jakarta.persistence.OneToOne;
 
 @Entity
 public class Serie {
-    @JsonView({Views.Serie.class, Views.ListaSeries.class, Views.IdSerie.class})
+    @JsonView({Views.Serie.class, Views.IdSerie.class, Views.Usuario.class})
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @JsonView({Views.Serie.class, Views.VerSerie.class, Views.ListaSeries.class})
+    @JsonView({Views.Serie.class, Views.VerSerie.class, Views.Usuario.class})
     @Column(unique = true)
     private final String nombre;
     

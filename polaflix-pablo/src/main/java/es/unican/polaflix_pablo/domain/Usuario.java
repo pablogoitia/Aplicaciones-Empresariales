@@ -39,12 +39,15 @@ public class Usuario {
     private String iban;
 
     // Listas de series
+    @JsonView({Views.Usuario.class})
     @ManyToMany
     private final Set<Serie> seriesPendientes = new LinkedHashSet<>();
 
+    @JsonView({Views.Usuario.class})
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private final Set<SerieEmpezada> seriesEmpezadas = new LinkedHashSet<>();
 
+    @JsonView({Views.Usuario.class})
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private final Set<SerieEmpezada> seriesTerminadas = new LinkedHashSet<>();
 

@@ -1,7 +1,6 @@
 package es.unican.polaflix_pablo.service;
 
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,36 +26,6 @@ public class UsuarioService {
 
     public Usuario getUsuario(String nombreUsuario) {
         return ur.findByNombreUsuario(nombreUsuario);
-    }
-
-    public Set<Serie> getSeriesPendientesUsuario(String nombreUsuario) {
-        Usuario usuario = ur.findByNombreUsuario(nombreUsuario);
-
-        if (usuario != null) {
-            return usuario.getSeriesPendientes();
-        } else {
-            return null;
-        }
-    }
-
-    public Set<SerieEmpezada> getSeriesEmpezadasUsuario(String nombreUsuario) {
-        Usuario usuario = ur.findByNombreUsuario(nombreUsuario);
-
-        if (usuario != null) {
-            return usuario.getSeriesEmpezadas();
-        } else {
-            return null;
-        }
-    }
-
-    public Set<SerieEmpezada> getSeriesTerminadasUsuario(String nombreUsuario) {
-        Usuario usuario = ur.findByNombreUsuario(nombreUsuario);
-
-        if (usuario != null) {
-            return usuario.getSeriesTerminadas();
-        } else {
-            return null;
-        }
     }
 
     public List<CapituloVisto> getCapitulosVistosUsuarioSerie(String nombreUsuario, Long idSerie) {
