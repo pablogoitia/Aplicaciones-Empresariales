@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import es.unican.polaflix_pablo.domain.Serie;
+import es.unican.polaflix_pablo.domain.Temporada;
 
 @RestController
 @RequestMapping("/series")
@@ -38,5 +40,50 @@ public class SerieController {
         }
 
 		return ResponseEntity.ok(s);
+    }
+
+    @GetMapping("/{id}")
+    @JsonView({Views.Serie.class})
+    public ResponseEntity<Serie> getSerie(@PathVariable Long id) {
+        ResponseEntity<Serie> result;
+        Serie s = serieService.getSerieById(id);
+
+        if (s != null) {
+            result = ResponseEntity.ok(s);
+        } else {
+            result = ResponseEntity.notFound().build();
+        }
+
+		return result;
+    }
+
+    @GetMapping("/{id}/temporadas")
+    @JsonView({Views.VerSerie.class})
+    public ResponseEntity<List<Temporada>> getTemporadasSerie(@PathVariable Long id) {
+        ResponseEntity<List<Temporada>> result;
+        List<Temporada> t = serieService.getAllTemporadas(id);
+
+        if (t != null) {
+            result = ResponseEntity.ok(t);
+        } else {
+            result = ResponseEntity.notFound().build();
+        }
+
+        return result;
+    }
+    
+    @GetMapping("/{id}/temporadas/{numTemporada}")
+    @JsonView({Views.VerSerie.class})
+    public ResponseEntity<Temporada> getTemporada(@PathVariable Long id, @PathVariable int numTemporada) {
+        ResponseEntity<Temporada> result;
+        Temporada t = serieService.getTemporadaById(id, numTemporada);
+
+        if (t == null) {
+            result = ResponseEntity.notFound().build();
+        } else {
+            result = ResponseEntity.ok(t);
+        }
+
+		return result;
     }
 }

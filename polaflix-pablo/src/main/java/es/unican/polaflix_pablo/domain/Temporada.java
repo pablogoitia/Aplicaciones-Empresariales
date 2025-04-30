@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import es.unican.polaflix_pablo.service.Views;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,11 +21,14 @@ public class Temporada {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
+    @JsonView({Views.VerSerie.class, Views.NumTemporada.class})
     private final int numeroTemporada;
 
+    @JsonView({Views.VerSerie.class})
     @ManyToOne
     private final Serie serie;
 
+    @JsonView({Views.VerSerie.class})
     @OneToMany(mappedBy = "temporada", cascade = CascadeType.ALL)
     private final List<Capitulo> capitulos = new ArrayList<>();
 

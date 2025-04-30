@@ -4,6 +4,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import es.unican.polaflix_pablo.service.Views;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,6 +25,7 @@ public class SerieEmpezada {
     @ManyToOne
     private Usuario usuario;
 
+    @JsonView({Views.ListaSeries.class})
     @OneToOne
     private final Serie serie;
 

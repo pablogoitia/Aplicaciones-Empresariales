@@ -14,7 +14,7 @@ public class CategoriaSeries {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @JsonView({Views.Serie.class})
+    @JsonView({Views.VerSerie.class})
     private final String nombre;
     private double importeCapitulo;
 

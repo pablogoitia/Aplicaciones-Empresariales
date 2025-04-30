@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
  * Provee metodos CRUD para gestionar los usuarios en la base de datos.
  */
 @Repository
-public interface UsuarioRepository extends JpaRepository<Usuario, Long> {}
+public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
+    Usuario findByNombreUsuario(String nombreUsuario);
+}

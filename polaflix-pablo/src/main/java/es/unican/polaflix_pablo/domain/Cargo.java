@@ -3,6 +3,9 @@ package es.unican.polaflix_pablo.domain;
 import java.util.Date;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import es.unican.polaflix_pablo.service.Views;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,9 +21,16 @@ public class Cargo {
     @ManyToOne
     private final Factura factura;
 
+    @JsonView({Views.Factura.class})
     private final Date fechaCargo = new Date();
+    
+    @JsonView({Views.Factura.class})
     private final String nombreSerie;
+
+    @JsonView({Views.Factura.class})
     private final String capituloTemporada;
+
+    @JsonView({Views.Factura.class})
     private final double importe;
 
     /**

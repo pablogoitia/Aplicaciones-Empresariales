@@ -17,12 +17,12 @@ import jakarta.persistence.OneToOne;
 
 @Entity
 public class Serie {
-    @JsonView({Views.Serie.class})
+    @JsonView({Views.Serie.class, Views.ListaSeries.class, Views.IdSerie.class})
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @JsonView({Views.Serie.class})
+    @JsonView({Views.Serie.class, Views.VerSerie.class, Views.ListaSeries.class})
     @Column(unique = true)
     private final String nombre;
     
@@ -35,8 +35,8 @@ public class Serie {
     @JsonView({Views.Serie.class})
     private String actores;
 
-    @JsonView({Views.Serie.class})
     @OneToOne
+    @JsonView({Views.VerSerie.class})
     private CategoriaSeries categoria;
 
     @OneToMany(mappedBy = "serie", cascade = CascadeType.ALL)

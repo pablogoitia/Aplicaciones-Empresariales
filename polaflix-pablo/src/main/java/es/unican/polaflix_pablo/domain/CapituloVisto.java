@@ -2,6 +2,9 @@ package es.unican.polaflix_pablo.domain;
 
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import es.unican.polaflix_pablo.service.Views;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,6 +21,7 @@ public class CapituloVisto {
     @ManyToOne
     private final SerieEmpezada serieEmpezada;
 
+    @JsonView({Views.CapitulosVistos.class})
     @OneToOne
     private final Capitulo capitulo;
 

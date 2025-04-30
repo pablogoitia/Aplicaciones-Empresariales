@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.unican.polaflix_pablo.domain.Serie;
+import es.unican.polaflix_pablo.domain.Temporada;
 import es.unican.polaflix_pablo.repositories.SerieRepository;
 
 @Service
@@ -46,5 +47,38 @@ public class SerieService {
     public List<Serie> getSeriesByInitial(String inicial) {
         String i = "" + inicial.toUpperCase().charAt(0);
         return sr.findByNombreStartingWith(i);
+    }
+
+
+    /**
+     * Devuelve la lista de temporadas de una serie.
+     * 
+     * @param idSerie - Id de la serie.
+     * @return List<Temporada> - Lista de temporadas de la serie. Si la serie no existe, devuelve null.
+     */
+    public List<Temporada> getAllTemporadas(Long idSerie) {
+        Serie serie = sr.findById(idSerie).orElse(null);
+
+        if (serie == null) {
+            return null;
+        }
+        
+        return serie.getTemporadas();
+    }
+
+    /**
+     * Devuelve una temporada de una serie.
+     * @param idSerie - Id de la serie.
+     * @param idTemporada - Numero de la temporada.
+     * @return Temporada - Temporada con los identificadores dados. Si no existe, devuelve null.
+     */
+    public Temporada getTemporadaById(Long idSerie, int idTemporada) {
+        Serie serie = sr.findById(idSerie).orElse(null);
+
+        if (serie == null) {
+            return null;
+        }
+        
+        return serie.getTemporada(idTemporada);
     }
 }
