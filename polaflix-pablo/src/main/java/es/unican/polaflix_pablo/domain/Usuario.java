@@ -6,6 +6,10 @@ import java.util.Set;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import es.unican.polaflix_pablo.service.Views;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -17,6 +21,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 
 @Entity
@@ -26,6 +31,7 @@ public class Usuario {
     private Long id;
 
     // Datos del usuario
+    @JsonView({Views.Usuario.class})
     @Column(unique = true)
     private String nombreUsuario;
 
@@ -33,7 +39,7 @@ public class Usuario {
     private String iban;
 
     // Listas de series
-    @OneToMany
+    @ManyToMany
     private final Set<Serie> seriesPendientes = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
@@ -94,9 +100,8 @@ public class Usuario {
      * actual.
      * 
      * @param capitulo El capitulo que se va a marcar como visto
-     * @return true si el capitulo se ha marcado como visto correctamente,
-     *         false si la serie del capitulo no está en la lista de series
-     *         empezadas
+     * @return true si el capitulo se ha marcado como visto o ya lo estaba,
+     *         false si la serie del capitulo no está en ninguna lista
      */
     public boolean verCapitulo(Capitulo capitulo) {
         Serie s = null;
