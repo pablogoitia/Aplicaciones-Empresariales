@@ -80,11 +80,6 @@ public class FacturaTest {
     }
 
     @Test
-    void testGetFechaFactura() {
-        assertNotNull(factura.getFechaFactura());
-    }
-
-    @Test
     void testGetImporteTotal() {
         factura.addCargo(capitulo1);
         factura.addCargo(capitulo2);

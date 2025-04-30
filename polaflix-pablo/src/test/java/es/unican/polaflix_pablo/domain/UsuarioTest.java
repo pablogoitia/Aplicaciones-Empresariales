@@ -85,8 +85,8 @@ public class UsuarioTest {
 
         // Crea un mock de Factura para simular que trabajamos con el mes anterior
         Factura oldFactura = mock(Factura.class);
-        when(oldFactura.getFechaFactura()).thenReturn(prevMonth.getTime());
         when(oldFactura.getMes()).thenReturn(prevMonth.get(Calendar.MONTH) + 1);
+        when(oldFactura.getAnio()).thenReturn(prevMonth.get(Calendar.YEAR));
         usuario.getFacturas().clear(); // Limpia las facturas actuales
         usuario.getFacturas().add(oldFactura);
 
