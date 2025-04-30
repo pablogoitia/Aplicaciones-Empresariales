@@ -4,8 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import es.unican.polaflix_pablo.domain.*;
-import es.unican.polaflix_pablo.repositories.*;
+import es.unican.polaflix_pablo.domain.Capitulo;
+import es.unican.polaflix_pablo.domain.CategoriaSeries;
+import es.unican.polaflix_pablo.domain.Serie;
+import es.unican.polaflix_pablo.domain.SerieEmpezada;
+import es.unican.polaflix_pablo.domain.Temporada;
+import es.unican.polaflix_pablo.domain.Usuario;
+import es.unican.polaflix_pablo.repositories.CategoriaSeriesRepository;
+import es.unican.polaflix_pablo.repositories.SerieRepository;
+import es.unican.polaflix_pablo.repositories.UsuarioRepository;
 
 @Component
 public class AppFeeder implements CommandLineRunner {
@@ -49,12 +56,12 @@ public class AppFeeder implements CommandLineRunner {
 	}
 
 	private void feedSeries() {
-		s1 = new Serie("Breaking Bad", "Un profesor de quimica se convierte en fabricante de metanfetamina",
-				csr.findById(1L).get(), "Vince Gilligan", "Bryan Cranston, Aaron Paul");
-		s2 = new Serie("Game of Thrones", "La lucha por el trono de hierro en los siete reinos de Westeros",
-				csr.findById(2L).get(), "David Benioff, D.B. Weiss", "Emilia Clarke, Kit Harington");
-		s3 = new Serie("Stranger Things", "Un grupo de amigos se enfrenta a fuerzas sobrenaturales en su pueblo",
-				csr.findById(3L).get(), "The Duffer Brothers", "Winona Ryder, David Harbour");
+		s1 = new Serie("La casa de papel", "Un grupo de criminales lleva a cabo el mayor atraco a la Real Casa de la Moneda de España.",
+				csr.findById(1L).get(), "Álex Pina", "Úrsula Corberó, Álvaro Morte...");
+		s2 = new Serie("Merlí", "Un profesor de filosofía enseña a sus alumnos a pensar por sí mismos.",
+				csr.findById(2L).get(), "Héctor Lozano", "Francesc Orella, Carlos Cuevas...");
+		s3 = new Serie("Reina Roja", "Antonia es “Reina Roja”, la pieza fundamental de una organización policial secreta que resuelve crímenes atroces.",
+				csr.findById(3L).get(), "Koldo Serra; Julián de Tavira", "Vicky Luengo, Hovik Keuchkerian...");
 
 		// Añadir temporadas a las series
 		Temporada s1t1 = new Temporada(1, s1);
@@ -71,17 +78,16 @@ public class AppFeeder implements CommandLineRunner {
 		s3.addTemporada(s3t2);
 
 		// Añadir un capitulo a cada temporada
-		Capitulo s1t1c1 = new Capitulo(1, "Pilot", "El piloto de la serie", s1t1);
-		Capitulo s1t2c1 = new Capitulo(1, "A Lush Life", "El primer capitulo de la segunda temporada", s1t2);
+		Capitulo s1t1c1 = new Capitulo(1, "Efectuar lo acordado", "El Profesor recluta a una joven experta en atracos y a otros siete delincuentes para llevar a cabo un gran asalto a la Fábrica Nacional de Moneda y Timbre.", s1t1);
+		Capitulo s1t2c1 = new Capitulo(1, "Hemos vuelto", "Desconsolada por el secuestro de Río, Tokio recurre al Profesor. Después de tramar un nuevo y osado plan para rescatarlo, sólo queda reunir al resto de la banda.", s1t2);
 		s1t1.addCapitulo(s1t1c1);
 		s1t2.addCapitulo(s1t2c1);
-		Capitulo s2t1c1 = new Capitulo(1, "Winter Is Coming", "El piloto de la serie", s2t1);
-		Capitulo s2t2c1 = new Capitulo(1, "The Kingsroad", "El primer capitulo de la segunda temporada", s2t2);
+		Capitulo s2t1c1 = new Capitulo(1, "Els peripatètics", "El piloto de la serie", s2t1);
+		Capitulo s2t2c1 = new Capitulo(1, "Plató", "El primer capitulo de la segunda temporada", s2t2);
 		s2t1.addCapitulo(s2t1c1);
 		s2t2.addCapitulo(s2t2c1);
-		Capitulo s3t1c1 = new Capitulo(1, "Chapter One: The Vanishing of Will Byers", "El piloto de la serie", s3t1);
-		Capitulo s3t2c1 = new Capitulo(1, "Chapter Two: The Weirdo on Maple Street",
-				"El primer capitulo de la segunda temporada", s3t2);
+		Capitulo s3t1c1 = new Capitulo(1, "Un salto", "El piloto de la serie", s3t1);
+		Capitulo s3t2c1 = new Capitulo(1, "Un tatuaje", "El primer capitulo de la segunda temporada", s3t2);
 		s3t1.addCapitulo(s3t1c1);
 		s3t2.addCapitulo(s3t2c1);
 
