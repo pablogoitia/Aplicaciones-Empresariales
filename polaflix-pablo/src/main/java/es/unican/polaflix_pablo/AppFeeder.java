@@ -33,7 +33,7 @@ public class AppFeeder implements CommandLineRunner {
 		feedCategoriasSeries();
 		feedSeries();
 		feedListasSeriesUsuario();
-		// testSimple();
+		testSimple();
 
 		System.out.println("Application feeded");
 	}
@@ -122,6 +122,7 @@ public class AppFeeder implements CommandLineRunner {
 
 	private void testSimple() {
 		// Test simple para comprobar que la aplicacion funciona
+		System.out.println("[INICIANDO TEST DE LA APLICACION]\n");
 		System.out.println("Usuario 1: " + u1.getNombreUsuario());
 		System.out.println("Series pendientes: ");
 		for (Serie s : u1.getSeriesPendientes()) {
@@ -154,5 +155,6 @@ public class AppFeeder implements CommandLineRunner {
 			System.out.println("- " + u.getNombreUsuario());
 		}
 		System.out.println();
+		System.out.println("[TEST DE LA APLICACION FINALIZADO]\n");
 	}
 }
