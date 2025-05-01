@@ -143,18 +143,7 @@ public class AppFeeder implements CommandLineRunner {
 		for (Usuario u : ur.findAll()) {
 			System.out.println("- " + u.getNombreUsuario());
 		}
-		System.out.println();
 
-		// Eliminar el primer usuario
-		ur.deleteById(1L);
-		System.out.println("Usuario 1 eliminado");
-
-		// Muestra la lista de usuarios restantes
-		System.out.println("Usuarios restantes:");
-		for (Usuario u : ur.findAll()) {
-			System.out.println("- " + u.getNombreUsuario());
-		}
-		System.out.println();
 		System.out.println("[TEST DE LA APLICACION FINALIZADO]\n");
 	}
 }
