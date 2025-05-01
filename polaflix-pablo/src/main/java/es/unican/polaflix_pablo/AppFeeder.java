@@ -41,6 +41,7 @@ public class AppFeeder implements CommandLineRunner {
 	private void feedUsuarios() {
 		u1 = new Usuario("pablogoitia", "123456", "ES7921000813610123456789");
 		u2 = new Usuario("johndoe", "789123", "ES6000491500051234567892");
+		u2.activaSuscripcion();
 		ur.save(u1);
 		ur.save(u2);
 	}

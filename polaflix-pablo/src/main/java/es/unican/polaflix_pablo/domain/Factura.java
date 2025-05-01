@@ -80,9 +80,18 @@ public class Factura {
      * @return El cargo creado y anadido a la factura
      */
     public Cargo addCargo(Capitulo capitulo) {
-        Cargo cargo = new Cargo(this, capitulo.getTemporada().getSerie().getNombre(),
+        Cargo cargo = null;
+        double importe = 0;
+
+        if (usuario.isSuscrito()) {
+            importe = 0;
+        } else {
+            importe = capitulo.getTemporada().getSerie().getCategoria().getImporteCapitulo();
+        }
+
+        cargo = new Cargo(this, capitulo.getTemporada().getSerie().getNombre(),
                 capitulo.getTemporada().getNumeroTemporada() + "x" + capitulo.getNumeroCapitulo(),
-                capitulo.getTemporada().getSerie().getCategoria().getImporteCapitulo());
+                importe);
         importeTotal += cargo.getImporte();
         cargos.add(cargo);
         return cargo;

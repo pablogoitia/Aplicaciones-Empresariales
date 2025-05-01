@@ -248,8 +248,8 @@ public class UsuarioTest {
     }
 
     @Test
-    void testIsTieneCuotaFija() {
-        assertFalse(usuario.isTieneCuotaFija());
+    void testSuscrito() {
+        assertFalse(usuario.isSuscrito());
     }
 
     @Test
@@ -268,11 +268,5 @@ public class UsuarioTest {
     void testSetNombreUsuario() {
         usuario.setNombreUsuario("newuser");
         assertEquals("newuser", usuario.getNombreUsuario());
-    }
-
-    @Test
-    void testSetTieneCuotaFija() {
-        usuario.setTieneCuotaFija(true);
-        assertTrue(usuario.isTieneCuotaFija());
     }
 }

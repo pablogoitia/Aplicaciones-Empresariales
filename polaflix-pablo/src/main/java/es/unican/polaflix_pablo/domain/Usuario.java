@@ -52,7 +52,7 @@ public class Usuario {
     private final Set<SerieEmpezada> seriesTerminadas = new LinkedHashSet<>();
 
     // Informacion de facturacion
-    private boolean tieneCuotaFija = false;
+    private boolean suscrito = false;
     
     @OneToMany(mappedBy = "usuario", cascade = {CascadeType.PERSIST, CascadeType.MERGE, 
         CascadeType.REFRESH, CascadeType.DETACH})
@@ -303,12 +303,16 @@ public class Usuario {
         return seriesTerminadas;
     }
 
-    public boolean isTieneCuotaFija() {
-        return tieneCuotaFija;
+    public boolean isSuscrito() {
+        return suscrito;
     }
 
-    public void setTieneCuotaFija(boolean tieneCuotaFija) {
-        this.tieneCuotaFija = tieneCuotaFija;
+    public void activaSuscripcion() {
+        this.suscrito = true;
+    }
+
+    public void desactivaSuscripcion() {
+        this.suscrito = false;
     }
 
     public List<Factura> getFacturas() {
