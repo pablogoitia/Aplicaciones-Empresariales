@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import es.unican.polaflix_pablo.domain.Capitulo;
 import es.unican.polaflix_pablo.domain.CapituloVisto;
@@ -24,10 +25,12 @@ public class UsuarioService {
     @Autowired
     private SerieRepository sr;
 
+    @Transactional(readOnly = true)
     public Usuario getUsuario(String nombreUsuario) {
         return ur.findByNombreUsuario(nombreUsuario);
     }
 
+    @Transactional(readOnly = true)
     public List<CapituloVisto> getCapitulosVistosUsuarioSerie(String nombreUsuario, Long idSerie) {
         Usuario usuario = ur.findByNombreUsuario(nombreUsuario);
         Serie serie = sr.findById(idSerie).orElse(null);
@@ -51,6 +54,7 @@ public class UsuarioService {
         return capitulos;
     }
 
+    @Transactional(readOnly = true)
     public Integer getUltimaTemporadaVista(String nombreUsuario, Long idSerie) {
         Usuario usuario = ur.findByNombreUsuario(nombreUsuario);
         Serie serie = sr.findById(idSerie).orElse(null);
@@ -81,6 +85,7 @@ public class UsuarioService {
         return temporada;
     }
 
+    @Transactional
     public Capitulo verCapitulo(String nombreUsuario, Long idSerie, int numTemporada, int numCapitulo) {
         Usuario u = ur.findByNombreUsuario(nombreUsuario);
         Serie s = null;
@@ -101,6 +106,7 @@ public class UsuarioService {
         return (visto) ? c : null;
     }
 
+    @Transactional
     public Serie anhadeSeriePendiente(String nombreUsuario, Long idSerie) {
         Usuario u = ur.findByNombreUsuario(nombreUsuario);
         Serie s = sr.findById(idSerie).orElse(null);
@@ -119,6 +125,7 @@ public class UsuarioService {
         return s;
     }
 
+    @Transactional(readOnly = true)
     public List<Factura> getAllFacturas(String nombreUsuario) {
         Usuario u = ur.findByNombreUsuario(nombreUsuario);
         List<Factura> facturas = null;
@@ -132,6 +139,7 @@ public class UsuarioService {
         return facturas;
     }
 
+    @Transactional(readOnly = true)
     public List<Factura> getFacturaConFiltro(String nombreUsuario, int mes, int anio) {
         Usuario u = ur.findByNombreUsuario(nombreUsuario);
         List<Factura> facturas = null;
