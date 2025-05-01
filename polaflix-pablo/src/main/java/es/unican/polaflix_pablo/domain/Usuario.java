@@ -84,10 +84,11 @@ public class Usuario {
      * 
      * @param serie La serie que se desea anadir a la lista de pendientes
      * @return true si la serie se anadio correctamente, false si la serie ya estaba
-     *         pendiente
+     *         en alguna lista del usuario (pendientes, empezadas o terminadas)
      */
     public boolean addSeriePendiente(Serie serie) {
-        if (seriesPendientes.contains(serie)) {
+        if (seriesPendientes.contains(serie) || getSerieEmpezada(serie) != null
+                || getSerieTerminada(serie) != null) {
             return false;
         }
         // Si no esta en la lista, la agregamos
