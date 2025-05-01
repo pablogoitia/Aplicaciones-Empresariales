@@ -87,7 +87,7 @@ public class UsuarioService {
 
     @Transactional
     public Capitulo verCapitulo(String nombreUsuario, Long idSerie, int numTemporada, int numCapitulo) {
-        Usuario u = ur.findByNombreUsuario(nombreUsuario);
+        Usuario u = null;
         Serie s = null;
         Temporada t = null;
         Capitulo c = null;
