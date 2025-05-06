@@ -1,4 +1,4 @@
-package es.unican.polaflix_pablo.service;
+package es.unican.polaflix_pablo.controllers;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,6 +19,8 @@ import es.unican.polaflix_pablo.domain.CapituloVisto;
 import es.unican.polaflix_pablo.domain.Factura;
 import es.unican.polaflix_pablo.domain.Serie;
 import es.unican.polaflix_pablo.domain.Usuario;
+import es.unican.polaflix_pablo.service.UsuarioService;
+import es.unican.polaflix_pablo.service.Views;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -73,7 +75,7 @@ public class UsuarioController {
         return ResponseEntity.ok(ultimaTemporada);
     }
 
-    @GetMapping("/{nombreUsuario}/ver-capitulo")
+    @PutMapping("/{nombreUsuario}/ver-capitulo")
     @JsonView({Views.CapitulosVistos.class})
     public ResponseEntity<Capitulo> visualizarCapitulo(
         @PathVariable String nombreUsuario,

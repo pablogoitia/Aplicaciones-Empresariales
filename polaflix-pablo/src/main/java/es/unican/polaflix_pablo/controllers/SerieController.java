@@ -1,4 +1,4 @@
-package es.unican.polaflix_pablo.service;
+package es.unican.polaflix_pablo.controllers;
 
 import java.util.List;
 
@@ -14,6 +14,8 @@ import com.fasterxml.jackson.annotation.JsonView;
 
 import es.unican.polaflix_pablo.domain.Serie;
 import es.unican.polaflix_pablo.domain.Temporada;
+import es.unican.polaflix_pablo.service.SerieService;
+import es.unican.polaflix_pablo.service.Views;
 
 @RestController
 @RequestMapping("/series")
