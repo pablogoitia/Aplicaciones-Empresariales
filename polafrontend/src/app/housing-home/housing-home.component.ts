@@ -21,10 +21,10 @@ import { HousingService } from '../housing.service';
       ></app-housing-location>
     </section>
   `,
-  styleUrls: ['./home.component.css'],
+  styleUrls: ['./housing-home.component.css'],
 })
 
-export class HomeComponent {
+export class HousingHomeComponent {
   housingLocationList: HousingLocation[] = [];
   housingService: HousingService = inject(HousingService);
   filteredLocationList: HousingLocation[] = [];
