@@ -1,0 +1,71 @@
+.header {
+  margin-top: var(--web-margin);
+  margin-left: var(--web-margin);
+  margin-right: var(--web-margin);
+  display: flex;
+  align-items: center;
+  height: 70px;
+  padding-left: var(--content-padding);
+  padding-right: var(--content-padding);
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  height: 100%;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.brand-logo {
+  height: 100%;
+}
+
+.brand-logo:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
+
+.username {
+  margin-right: 15px;
+  font-size: larger;
+  color: white;
+}
+
+.username:hover {
+  cursor: pointer;
+  text-decoration: underline;
+  transition: text-decoration 0.3s ease;
+}
+
+.profile-pic {
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  background-color: rgb(182, 182, 182);
+}
+
+.profile-pic-letter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  color: white;
+  font-weight: 500;
+  width: 100%;
+  height: 100%;
+}
+
+.profile-pic:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}

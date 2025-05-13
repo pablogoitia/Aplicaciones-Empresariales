@@ -1,17 +1,17 @@
 import { Routes } from '@angular/router';
-import { HousingHomeComponent } from './housing-home/housing-home.component';
-import { DetailsComponent } from './details/details.component';
+import { ProfileComponent } from './features/profile/profile.component';
+import { CatalogoComponent } from './features/catalogo/catalogo.component';
 
 const routeConfig: Routes = [
   {
-    path: 'housing',
-    component: HousingHomeComponent,
-    title: 'Home page',
+    path: '',
+    component: ProfileComponent,
+    title: 'Inicio | Polaflix',
   },
   {
-    path: 'housing/details/:id',
-    component: DetailsComponent,
-    title: 'Home details',
+    path: 'catalogo',
+    component: CatalogoComponent,
+    title: 'Catálogo de Series | Polaflix',
   },
 ];
 
