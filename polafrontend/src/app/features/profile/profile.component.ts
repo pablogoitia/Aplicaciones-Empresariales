@@ -1,9 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ListadoSeriesComponent } from './listado-series/listado-series.component';
 import { AdBannerComponent } from '../../shared/components/ad-banner/ad-banner.component';
 import { SeparadorComponent } from '../../shared/components/separador/separador.component';
 import { UsuarioService } from '../../shared/services/usuario.service';
-import { OnInit } from '@angular/core';
 import { ResumenSerieInterface } from '../../shared/interfaces/serie.interface';
 import { environment } from '../../../environments/environment';
 
