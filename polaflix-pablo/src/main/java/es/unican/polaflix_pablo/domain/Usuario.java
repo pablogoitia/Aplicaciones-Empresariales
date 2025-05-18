@@ -21,6 +21,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 
@@ -44,11 +46,21 @@ public class Usuario {
     private final Set<Serie> seriesPendientes = new LinkedHashSet<>();
 
     @JsonView({Views.Usuario.class})
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL) 
+    @JoinTable(
+        name = "usuario_series_empezadas", 
+        joinColumns = @JoinColumn(name = "usuario_id"), 
+        inverseJoinColumns = @JoinColumn(name = "serie_empezada_id")
+    )
     private final Set<SerieEmpezada> seriesEmpezadas = new LinkedHashSet<>();
 
     @JsonView({Views.Usuario.class})
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL) 
+    @JoinTable(
+        name = "usuario_series_terminadas", 
+        joinColumns = @JoinColumn(name = "usuario_id"), 
+        inverseJoinColumns = @JoinColumn(name = "serie_empezada_id")
+    )
     private final Set<SerieEmpezada> seriesTerminadas = new LinkedHashSet<>();
 
     // Informacion de facturacion
