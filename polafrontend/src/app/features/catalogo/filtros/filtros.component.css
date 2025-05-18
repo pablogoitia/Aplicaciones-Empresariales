@@ -1,0 +1,59 @@
+.filtros-container {
+    display: flex;
+    gap: 1.5rem;
+    padding: 0.5rem 1rem;
+    background: #fff;
+    border-radius: 12px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.letras {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: flex-start;
+}
+
+.letra-btn {
+    background: #f0f0f0;
+    border: none;
+    border-radius: 6px;
+    padding: 0.5rem 0.8rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #333;
+    cursor: pointer;
+}
+
+.letra-btn:hover {
+    background: #e10000;
+    color: #fff;
+    transition: background 0.5s ease;
+}
+
+.selected {
+    background: #e10000;
+    color: #fff;
+}
+
+.busqueda {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.busqueda input[type="text"] {
+    width: 100%;
+    max-width: 320px;
+    padding: 0.6rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border 0.2s;
+}
+
+.busqueda input[type="text"]:hover,
+.busqueda input[type="text"]:focus {
+    border-color: #e10000;
+    outline: none;
+}

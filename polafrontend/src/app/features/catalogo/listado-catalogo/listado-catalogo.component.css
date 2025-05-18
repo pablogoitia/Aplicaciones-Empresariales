@@ -1,0 +1,16 @@
+.listado {
+  margin-top: var(--padding-top);
+  border-radius: 15px;
+  padding: 1.5rem 2rem 0.8rem 2rem;
+  background-color: #333;
+  color: #fff;
+  height: auto;
+  margin-bottom: 1rem;
+}
+
+.titulo {
+  font-size: 1.3rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  color: #fff;
+}

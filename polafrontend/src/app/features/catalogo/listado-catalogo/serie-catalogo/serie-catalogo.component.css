@@ -1,0 +1,71 @@
+.serie {
+  border-radius: 15px;
+  padding: 0.75rem 1rem;
+  background-color: #ededed;
+  margin-bottom: 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.serie:hover {
+  background-color: #ffffff;
+  transform: scale(1.005);
+  transition: transform 0.3s ease;
+}
+
+.titulo {
+  color: #000000;
+  font-weight: 500;
+}
+
+.titulo:hover {
+  cursor: pointer;
+}
+
+.titulo-destacado {
+  color: #418600;
+  font-weight: 600;
+}
+
+.detalle {
+  background-color: #525252;
+  padding: 1rem;
+  border-radius: 15px;
+  margin-top: 0.5rem;
+  margin-bottom: 1.2rem;
+  opacity: 0;
+  overflow: hidden;
+  animation: desplegarDetalle 0.5s ease forwards;
+}
+
+@keyframes desplegarDetalle {
+  to {
+    opacity: 1;
+  }
+}
+
+.cerrar-detalle {
+  float: right;
+  background: #202020;
+  border: none;
+  font-size: 1.2em;
+  cursor: pointer;
+  border-radius: 6px;
+  color: #ffffff;
+  padding: 1px 6px 2px 6px;
+  margin-left: 10px;
+}
+
+.agregar-serie {
+  background-color: #e10000;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.7rem 1.5rem;
+  cursor: pointer;
+}
+
+.detalle-texto {
+  font-size: 15px;
+}
