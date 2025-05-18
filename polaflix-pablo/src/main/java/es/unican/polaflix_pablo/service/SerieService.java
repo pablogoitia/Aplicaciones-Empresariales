@@ -31,7 +31,7 @@ public class SerieService {
      */
     @Transactional(readOnly = true)
     public List<Serie> getSeriesByName(String name) {
-        return sr.findByNombreStartingWith(name);
+        return sr.findByNombreStartingWithIgnoreCase(name);
     }
 
     /**
@@ -51,7 +51,7 @@ public class SerieService {
     @Transactional(readOnly = true)
     public List<Serie> getSeriesByInitial(String inicial) {
         String i = "" + inicial.toUpperCase().charAt(0);
-        return sr.findByNombreStartingWith(i);
+        return sr.findByNombreStartingWithIgnoreCase(i);
     }
 
     /**

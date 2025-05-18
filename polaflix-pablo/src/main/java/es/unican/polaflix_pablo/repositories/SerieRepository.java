@@ -13,5 +13,5 @@ import java.util.List;
 @Repository
 public interface SerieRepository extends JpaRepository<Serie, Long> {
     public List<Serie> findByNombre(String nombre);
-    public List<Serie> findByNombreStartingWith(String inicial);
+    public List<Serie> findByNombreStartingWithIgnoreCase(String inicial);
 }
