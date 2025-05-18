@@ -66,6 +66,10 @@
   cursor: pointer;
 }
 
+.agregar-serie:hover {
+  background-color: #ff2e2e;
+}
+
 .detalle-texto {
   font-size: 15px;
 }
