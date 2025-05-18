@@ -1,12 +1,7 @@
 .header {
-  margin-top: var(--web-margin);
-  margin-left: var(--web-margin);
-  margin-right: var(--web-margin);
   display: flex;
   align-items: center;
   height: 70px;
-  padding-left: var(--content-padding);
-  padding-right: var(--content-padding);
   padding-top: 16px;
   padding-bottom: 16px;
 }

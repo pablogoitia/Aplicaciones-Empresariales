@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   template: `
     <footer class="footer">
         <div class="footer-left">
-            <p>&copy; 2025 Polaflix. Todos los derechos reservados.</p>
+            <p><b>&copy; 2025 Polaflix.</b> Todos los derechos reservados.</p>
         </div>
         <div class="footer-right">
             <a href="/" title="Términos y condiciones">Términos y condiciones</a>

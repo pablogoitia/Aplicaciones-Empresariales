@@ -10,13 +10,17 @@ import { environment } from '../environments/environment';
   imports: [RouterOutlet, HeaderComponent, MainMenuComponent, FooterComponent],
   template: `
     <body class="main">
-      <app-header [username]="username"/>
-      <app-main-menu/>
-      <section class="content">
-        <router-outlet></router-outlet>
+      <section class="header">
+        <app-header [username]="username"/>
+        <app-main-menu/>
       </section>
-      <app-footer/>
+      <section class="content">
+        <router-outlet/>
+      </section>
     </body>
+    <section class="footer">
+      <app-footer/>
+    </section>
   `,
   styleUrls: ['./app.component.css'],
 })

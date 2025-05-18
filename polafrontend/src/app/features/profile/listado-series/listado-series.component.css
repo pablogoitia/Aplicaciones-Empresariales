@@ -1,6 +1,4 @@
 .listado {
-  margin-left: var(--web-margin);
-  margin-right: var(--web-margin);
   border-radius: 15px;
   padding: 1.5rem 2rem;
   background-color: #333;

@@ -1,8 +1,23 @@
 :host {
-  --content-padding: 50px;
   --web-margin: 50px;
+  --header-margin: 100px;
+  --header-top-margin: 50px;
+  --content-side-margin: 100px;
+  --content-separation-margin: 50px;
+}
+
+.header {
+  margin-top: var(--header-top-margin);
+  margin-left: var(--header-margin);
+  margin-right: var(--header-margin);
 }
 
 .content {
-  padding: var(--content-padding);
+  margin: var(--content-separation-margin) var(--content-side-margin);
+}
+
+.footer {
+  margin-left: var(--web-margin);
+  margin-right: var(--web-margin);
+  margin-bottom: 20px;
 }
