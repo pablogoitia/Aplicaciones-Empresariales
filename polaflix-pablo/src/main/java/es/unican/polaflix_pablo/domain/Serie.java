@@ -12,8 +12,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 
 @Entity
 public class Serie {
@@ -27,6 +27,7 @@ public class Serie {
     private final String nombre;
     
     @JsonView({Views.Serie.class})
+    @Column(length = 2000)
     private String sinopsis;
 
     @JsonView({Views.Serie.class})
@@ -35,7 +36,7 @@ public class Serie {
     @JsonView({Views.Serie.class})
     private String actores;
 
-    @OneToOne
+    @ManyToOne
     @JsonView({Views.VerSerie.class})
     private CategoriaSeries categoria;
 
