@@ -2,7 +2,6 @@ import { Component, Input } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { SeparadorComponent } from 'src/app/shared/components/separador/separador.component';
-import { environment } from 'src/environments/environment';
 import { UsuarioService } from 'src/app/shared/services/usuario.service';
 
 @Component({
@@ -10,7 +9,7 @@ import { UsuarioService } from 'src/app/shared/services/usuario.service';
   standalone: true,
   imports: [NgClass, CommonModule, SeparadorComponent],
   template: `
-    <div class="serie">
+    <div [ngClass]="destacar ? 'serie-destacada' : 'serie'" >
       <h3 [ngClass]="destacar ? 'titulo-destacado' : 'titulo'" (click)="mostrarDetalle = !mostrarDetalle">{{ tituloSerie }}</h3>
       <button class="agregar-serie" (click)="agregarASeriesPendientes(idSerie)">Agregar</button>
     </div>
