@@ -10,6 +10,9 @@ import { SerieInterface } from '../../../shared/interfaces/serie.interface';
   template: `
     <h3 class="titulo">{{ titulo }}</h3>
     <div class="listado">
+      <ng-container *ngIf="series.length === 0">
+        <p class="listado-texto-not-found">Parece que aún no tenemos películas que coincidan con la inicial indicada. ¡Vuelve pronto!</p>
+      </ng-container>
       <ng-container *ngFor="let serie of series">
         <content-serie
           [idSerie]="serie.id"
