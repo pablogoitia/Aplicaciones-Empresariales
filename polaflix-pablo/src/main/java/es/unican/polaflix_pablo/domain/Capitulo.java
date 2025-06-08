@@ -12,7 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class Capitulo {
+public class Capitulo implements Comparable<Capitulo> {
     @JsonView({Views.VerSerie.class, Views.CapitulosVistos.class})
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -98,5 +98,20 @@ public class Capitulo {
     @Override
     public int hashCode() {
         return Objects.hash(numeroCapitulo, temporada);
+    }
+
+    @Override
+    public int compareTo(Capitulo o) {
+        int temporadaCmp = Integer.compare(
+            this.getTemporada().getNumeroTemporada(), 
+            o.getTemporada().getNumeroTemporada()
+        );
+        if (temporadaCmp != 0) {
+            return temporadaCmp;
+        }
+        return Integer.compare(
+            this.getNumeroCapitulo(), 
+            o.getNumeroCapitulo()
+        );
     }
 }
