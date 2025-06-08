@@ -7,7 +7,6 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import es.unican.polaflix_pablo.service.Views;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,14 +22,14 @@ public class SerieEmpezada {
     private Long id;
     
     @ManyToOne
-    private Usuario usuario;
+    private final Usuario usuario;
 
     @JsonView({Views.Usuario.class})
     @OneToOne
     private final Serie serie;
 
-    @OneToMany(mappedBy = "serieEmpezada", cascade = CascadeType.ALL)
-    private final List<CapituloVisto> capitulosVistos = new LinkedList<>();
+    @OneToMany
+    private final List<Capitulo> capitulosVistos = new LinkedList<>();
 
     /**
      * Constructor de la clase SerieEmpezada.
@@ -59,11 +58,9 @@ public class SerieEmpezada {
      *         false si el capitulo ya fue visto anteriormente
      */
     public boolean addCapituloVisto(Capitulo capitulo) {
-        CapituloVisto capituloVisto = new CapituloVisto(this, capitulo);
-
         // Si el capitulo no esta en la lista de capitulos vistos, lo anade
-        if (!capitulosVistos.contains(capituloVisto)) {
-            capitulosVistos.add(capituloVisto);
+        if (!capitulosVistos.contains(capitulo)) {
+            capitulosVistos.add(capitulo);
             return true;
         }
         return false;
@@ -81,12 +78,16 @@ public class SerieEmpezada {
     }
 
     // Getters
+    public Usuario getUsuario() {
+        return usuario;
+    }
+    
     public Serie getSerie() {
         return serie;
     }
 
-    public List<CapituloVisto> getCapitulosVistos() {
-        return capitulosVistos;
+    public List<Capitulo> getCapitulosVistos() {
+        return capitulosVistos.stream().sorted().toList();
     }
     
     @Override
