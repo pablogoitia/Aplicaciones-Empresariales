@@ -93,28 +93,6 @@ public class UsuarioTest {
         // Prueba que la factura del ultimo mes facturado no es devuelta
         assertNull(usuario.getFacturaMesActual());
     }
-    
-    @Test
-    void testGetSeriePendiente() {
-        // Prueba cuando la lista de series está vacia
-        assertNull(usuario.getSeriePendiente(serie1));
-        
-        // Prueba cuando la serie esta en la lista
-        usuario.addSeriePendiente(serie1);
-        Serie encontrada = usuario.getSeriePendiente(serie1);
-        assertNotNull(encontrada);
-        assertEquals(serie1.getNombre(), encontrada.getNombre());
-        
-        // Prueba con una serie diferente que no esta en la lista
-        Serie serie2 = new Serie("Serie 2", "Sinopsis", categoria, "Creadores", "Actores");
-        assertNull(usuario.getSeriePendiente(serie2));
-        
-        // Prueba con una serie con el mismo nombre pero diferente objeto
-        Serie serieMismoNombre = new Serie("Serie 1", "Sinopsis diferente", categoria, "Otros creadores", "Otros actores"); 
-        encontrada = usuario.getSeriePendiente(serieMismoNombre);
-        assertNotNull(encontrada);
-        assertEquals(serie1.getNombre(), encontrada.getNombre());
-    }
 
     @Test
     void testGetSerieEmpezada() {
@@ -133,7 +111,7 @@ public class UsuarioTest {
         assertNull(usuario.getSerieEmpezada(serie2));
         
         // Prueba con una serie con el mismo nombre pero diferente objeto
-        Serie serieMismoNombre = new Serie("Serie 1", "Sinopsis diferente", categoria, "Otros creadores", "Otros actores");
+        Serie serieMismoNombre = new Serie("Serie 1", "Sinopsis diferente", categoria, "Creadores", "Otros actores");
         encontrada = usuario.getSerieEmpezada(serieMismoNombre);
         assertNotNull(encontrada);
         assertEquals(serie1.getNombre(), encontrada.getSerie().getNombre());

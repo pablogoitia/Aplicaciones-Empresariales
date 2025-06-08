@@ -13,7 +13,7 @@ import es.unican.polaflix_pablo.service.Views;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.LinkedHashSet;
+import java.util.HashSet;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -43,7 +43,7 @@ public class Usuario {
     // Listas de series
     @JsonView({Views.Usuario.class})
     @ManyToMany
-    private final Set<Serie> seriesPendientes = new LinkedHashSet<>();
+    private final Set<Serie> seriesPendientes = new HashSet<>();
 
     @JsonView({Views.Usuario.class})
     @OneToMany(cascade = CascadeType.ALL) 
@@ -52,7 +52,7 @@ public class Usuario {
         joinColumns = @JoinColumn(name = "usuario_id"), 
         inverseJoinColumns = @JoinColumn(name = "serie_empezada_id")
     )
-    private final Set<SerieEmpezada> seriesEmpezadas = new LinkedHashSet<>();
+    private final Set<SerieEmpezada> seriesEmpezadas = new HashSet<>();
 
     @JsonView({Views.Usuario.class})
     @OneToMany(cascade = CascadeType.ALL) 
@@ -61,7 +61,7 @@ public class Usuario {
         joinColumns = @JoinColumn(name = "usuario_id"), 
         inverseJoinColumns = @JoinColumn(name = "serie_empezada_id")
     )
-    private final Set<SerieEmpezada> seriesTerminadas = new LinkedHashSet<>();
+    private final Set<SerieEmpezada> seriesTerminadas = new HashSet<>();
 
     // Informacion de facturacion
     private boolean suscrito = false;
@@ -128,7 +128,8 @@ public class Usuario {
         Factura f;
 
         // Si la serie esta en la lista de pendientes, la movemos a la lista de empezadas
-        if ((s = getSeriePendiente(capitulo.getTemporada().getSerie())) != null) {
+        s = capitulo.getTemporada().getSerie();
+        if (seriesPendientes.contains(s)) {
             serieEmpezada = movPendienteAEmpezadas(s);
         }
 
@@ -151,6 +152,7 @@ public class Usuario {
             seriesEmpezadas.remove(serieEmpezada);
         }
 
+        // Visualiza el capitulo
         no_visto = serieEmpezada.addCapituloVisto(capitulo);
 
         // Si el capitulo no se habia visto antes, se agrega el cargo a la factura
@@ -226,22 +228,6 @@ public class Usuario {
     }
 
     /**
-     * Busca una serie especifica en el conjunto de series pendientes del usuario.
-     * 
-     * @param serie La serie que se desea buscar en la lista de series pendientes
-     * @return La serie si se encuentra en la lista de pendientes, null si no se
-     *         encuentra
-     */
-    public Serie getSeriePendiente(Serie serie) {
-        for (Serie s : seriesPendientes) {
-            if (s.equals(serie)) {
-                return s;
-            }
-        }
-        return null;
-    }
-
-    /**
      * Busca y devuelve una SerieEmpezada especifica del usuario.
      * 
      * @param serie La Serie que se desea buscar entre las series empezadas del
@@ -249,12 +235,10 @@ public class Usuario {
      * @return La SerieEmpezada correspondiente si existe, null en caso contrario
      */
     public SerieEmpezada getSerieEmpezada(Serie serie) {
-        for (SerieEmpezada se : seriesEmpezadas) {
-            if (se.getSerie().equals(serie)) {
-                return se;
-            }
-        }
-        return null;
+        return seriesEmpezadas.stream()
+            .filter(se -> se.getSerie().equals(serie))
+            .findFirst()
+            .orElse(null);
     }
     
     /**
@@ -266,12 +250,10 @@ public class Usuario {
      * @return La SerieEmpezada correspondiente si existe, null en caso contrario
      */
     public SerieEmpezada getSerieTerminada(Serie serie) {
-        for (SerieEmpezada se : seriesTerminadas) {
-            if (se.getSerie().equals(serie)) {
-                return se;
-            }
-        }
-        return null;
+        return seriesTerminadas.stream()
+            .filter(se -> se.getSerie().equals(serie))
+            .findFirst()
+            .orElse(null);
     }
 
     // Getters y Setters
