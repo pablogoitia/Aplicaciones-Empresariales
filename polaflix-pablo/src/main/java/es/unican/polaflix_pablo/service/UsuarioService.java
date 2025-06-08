@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import es.unican.polaflix_pablo.domain.Capitulo;
-import es.unican.polaflix_pablo.domain.CapituloVisto;
 import es.unican.polaflix_pablo.domain.Factura;
 import es.unican.polaflix_pablo.domain.Serie;
 import es.unican.polaflix_pablo.domain.SerieEmpezada;
@@ -31,10 +30,10 @@ public class UsuarioService {
     }
 
     @Transactional(readOnly = true)
-    public List<CapituloVisto> getCapitulosVistosUsuarioSerie(String nombreUsuario, Long idSerie) {
+    public List<Capitulo> getCapitulosVistosUsuarioSerie(String nombreUsuario, Long idSerie) {
         Usuario usuario = ur.findByNombreUsuario(nombreUsuario);
         Serie serie = sr.findById(idSerie).orElse(null);
-        List<CapituloVisto> capitulos = List.of();
+        List<Capitulo> capitulos = List.of();
         SerieEmpezada serieEmpezada = null;
 
         if (usuario == null || serie == null) {
@@ -74,8 +73,8 @@ public class UsuarioService {
 
         if (serieEmpezada != null) {
             temporada = 1;
-            for (CapituloVisto c : serieEmpezada.getCapitulosVistos()) {
-                temp = c.getCapitulo().getTemporada().getNumeroTemporada();
+            for (Capitulo c : serieEmpezada.getCapitulosVistos()) {
+                temp = c.getTemporada().getNumeroTemporada();
                 if (temp > temporada) {
                     temporada = temp;
                 }

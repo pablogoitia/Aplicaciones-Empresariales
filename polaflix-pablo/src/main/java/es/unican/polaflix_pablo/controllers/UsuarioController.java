@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import es.unican.polaflix_pablo.domain.Capitulo;
-import es.unican.polaflix_pablo.domain.CapituloVisto;
 import es.unican.polaflix_pablo.domain.Factura;
 import es.unican.polaflix_pablo.domain.Serie;
 import es.unican.polaflix_pablo.domain.Usuario;
@@ -48,18 +47,18 @@ public class UsuarioController {
 
     @GetMapping("/{nombreUsuario}/capitulos-vistos/{idSerie}")
     public ResponseEntity<List<Long>> getCapitulosVistosUsuarioSerie(@PathVariable String nombreUsuario, @PathVariable Long idSerie, @RequestParam(required = false) Integer numTemporada) {
-        List<CapituloVisto> capitulos = usuarioService.getCapitulosVistosUsuarioSerie(nombreUsuario, idSerie);
+        List<Capitulo> capitulos = usuarioService.getCapitulosVistosUsuarioSerie(nombreUsuario, idSerie);
 
         if (capitulos == null) {
             return ResponseEntity.notFound().build();
         }
 
         if (numTemporada != null) {
-            capitulos.removeIf(c -> c.getCapitulo().getTemporada().getNumeroTemporada() != numTemporada);
+            capitulos.removeIf(c -> c.getTemporada().getNumeroTemporada() != numTemporada);
         }
 
         List<Long> numerosCapitulos = capitulos.stream()
-            .map(cv -> cv.getCapitulo().getId())
+            .map(cv -> cv.getId())
             .collect(Collectors.toList());
 
         return ResponseEntity.ok(numerosCapitulos);
