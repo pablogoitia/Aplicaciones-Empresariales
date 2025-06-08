@@ -84,6 +84,18 @@
   background-color: #ff2e2e;
 }
 
+.agregar-serie:active {
+  background-color: #0da100;
+  transform: scale(0.95);
+}
+
+.agregar-serie:focus {
+  background-color: #ffffff;
+  color: #0da100;
+  border: 2px solid #0da100;
+  transform: scale(0.95);
+}
+
 .detalle-texto {
   font-size: 15px;
 }
