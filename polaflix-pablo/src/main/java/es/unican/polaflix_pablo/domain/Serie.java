@@ -23,7 +23,6 @@ public class Serie {
     private Long id;
     
     @JsonView({Views.Serie.class, Views.VerSerie.class, Views.Usuario.class})
-    @Column(unique = true)
     private final String nombre;
     
     @JsonView({Views.Serie.class})
@@ -41,7 +40,7 @@ public class Serie {
     private CategoriaSeries categoria;
 
     @OneToMany(mappedBy = "serie", cascade = CascadeType.ALL)
-    private List<Temporada> temporadas = new ArrayList<>();
+    private final List<Temporada> temporadas = new ArrayList<>();
 
     /**
      * Constructor de la clase Serie
@@ -138,10 +137,6 @@ public class Serie {
         return temporadas;
     }
 
-    public void setTemporadas(List<Temporada> temporadas) {
-        this.temporadas = temporadas;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -149,13 +144,13 @@ public class Serie {
         }
         if (o != null && o instanceof Serie) {
             Serie serie = (Serie) o;
-            return nombre.equals(serie.nombre);
+            return nombre.equals(serie.nombre) && creadores.equals(serie.creadores);
         }
         return false;
     }
 
     @Override
     public int hashCode() {
-        return nombre.hashCode();
+        return java.util.Objects.hash(nombre, creadores);
     }
 }
