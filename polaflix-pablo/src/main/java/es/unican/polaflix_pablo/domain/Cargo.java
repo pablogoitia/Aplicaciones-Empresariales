@@ -56,6 +56,10 @@ public class Cargo {
     }
 
     // Getters
+    public Factura getFactura() {
+        return factura;
+    }
+    
     public Date getFechaCargo() {
         return fechaCargo;
     }
