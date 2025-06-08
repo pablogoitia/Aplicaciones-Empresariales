@@ -15,7 +15,7 @@ public class CategoriaSeries {
     private Long id;
     
     @JsonView({Views.VerSerie.class})
-    private final String nombre;
+    private String nombre;
     private double importeCapitulo;
 
     /**
@@ -38,6 +38,10 @@ public class CategoriaSeries {
     // Getters y Setters
     public String getNombre() {
         return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public double getImporteCapitulo() {
