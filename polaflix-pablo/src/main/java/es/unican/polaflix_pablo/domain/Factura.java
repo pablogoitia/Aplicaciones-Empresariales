@@ -11,7 +11,6 @@ import es.unican.polaflix_pablo.service.Views;
 import java.util.Calendar;
 
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,34 +20,25 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
-
 @Entity
 public class Factura {
+    private static final double IMPORTE_SUSCRIPCION = 20.0;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
-    @Column(unique = true)
-    private final String numeroFactura;
 
-    @JsonView({Views.Factura.class})
-    private int mes;
+    @JsonView({ Views.Factura.class })
+    private final int mes;
 
-    @JsonView({Views.Factura.class})
-    private int anio;
-    
-    @JsonView({Views.Factura.class})
-    private double importeTotal = 0;
-    
+    @JsonView({ Views.Factura.class })
+    private final int anio;
+
     @ManyToOne
-    @JoinTable(
-        name = "Usuario_Factura",
-        joinColumns = @JoinColumn(name = "factura"),
-        inverseJoinColumns = @JoinColumn(name = "usuario")
-    )
-    private Usuario usuario; // Con tabla intermedia para evitar eliminacion en cascada
+    @JoinTable(name = "Usuario_Factura", joinColumns = @JoinColumn(name = "factura"), inverseJoinColumns = @JoinColumn(name = "usuario"))
+    private final Usuario usuario; // Con tabla intermedia para evitar eliminacion en cascada
 
-    @JsonView({Views.Factura.class})
+    @JsonView({ Views.Factura.class })
     @OneToMany(mappedBy = "factura", cascade = CascadeType.ALL)
     private final List<Cargo> cargos = new ArrayList<>();
 
@@ -63,14 +53,23 @@ public class Factura {
         cal.setTime(fechaActual());
         mes = cal.get(Calendar.MONTH) + 1;
         anio = cal.get(Calendar.YEAR);
-        numeroFactura = "POLAFLIX_" + getMes() + "_" + getAnio() + "_" + usuario.getId();
         this.usuario = usuario;
     }
 
     // Constructor vacio para JPA
     public Factura() {
-        this.numeroFactura = null;
         this.usuario = null;
+        this.mes = 0;
+        this.anio = 0;
+    }
+
+    // Importe total derivado
+    @JsonView({ Views.Factura.class })
+    public double getImporteTotal() {
+        if (usuario.isSuscrito()) {
+            return IMPORTE_SUSCRIPCION;
+        }
+        return cargos.stream().mapToDouble(Cargo::getImporte).sum();
     }
 
     /**
@@ -80,20 +79,12 @@ public class Factura {
      * @return El cargo creado y anadido a la factura
      */
     public Cargo addCargo(Capitulo capitulo) {
-        Cargo cargo = null;
-        double importe = 0;
-
-        if (usuario.isSuscrito()) {
-            importe = 0;
-        } else {
-            importe = capitulo.getTemporada().getSerie().getCategoria().getImporteCapitulo();
-        }
-
-        cargo = new Cargo(this, capitulo.getTemporada().getSerie().getNombre(),
+        double importe = capitulo.getTemporada().getSerie().getCategoria().getImporteCapitulo();
+        Cargo cargo = new Cargo(this, capitulo.getTemporada().getSerie().getNombre(),
                 capitulo.getTemporada().getNumeroTemporada() + "x" + capitulo.getNumeroCapitulo(),
                 importe);
-        importeTotal += cargo.getImporte();
         cargos.add(cargo);
+
         return cargo;
     }
 
@@ -105,6 +96,15 @@ public class Factura {
     private Date fechaActual() {
         Calendar cal = Calendar.getInstance();
         return cal.getTime();
+    }
+
+    // Getters y Setters
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public List<Cargo> getCargos() {
+        return cargos;
     }
 
     /**
@@ -127,41 +127,22 @@ public class Factura {
         return anio;
     }
 
-    // Getters y Setters
-    public String getNumeroFactura() {
-        return numeroFactura;
-    }
-
-    public double getImporteTotal() {
-        return importeTotal;
-    }
-
-    public void setImporteTotal(double importeTotal) {
-        this.importeTotal = importeTotal;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public List<Cargo> getCargos() {
-        return cargos;
-    }
-
     @Override
     public boolean equals(Object o) {
-        if (o == this) {
+        if (this == o) {
             return true;
         }
-        if (o != null && o instanceof Factura) {
-            Factura f = (Factura) o;
-            return f.getNumeroFactura().equals(numeroFactura);
+        if (o == null || getClass() != o.getClass()) {
+            return false;
         }
-        return false;
+        Factura factura = (Factura) o;
+        return mes == factura.mes &&
+                anio == factura.anio &&
+                (usuario != null ? usuario.equals(factura.usuario) : factura.usuario == null);
     }
 
     @Override
     public int hashCode() {
-        return numeroFactura.hashCode();
+        return java.util.Objects.hash(mes, anio, usuario);
     }
 }

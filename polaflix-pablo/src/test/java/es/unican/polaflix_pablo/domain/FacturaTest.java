@@ -4,7 +4,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.List;
-import java.lang.reflect.Field;
 import java.util.Calendar;
 
 public class FacturaTest {
@@ -55,19 +54,6 @@ public class FacturaTest {
         
         // Probar con objeto de diferente tipo
         assertFalse(factura.equals(new Object()));
-        
-        // Comprobar que facturas con mismo numero son iguales
-        String nF = factura.getNumeroFactura();
-        Factura facturaIgual = new Factura(usuario);
-
-        // Accedemos al campo privado "nombre"
-        Field field = Factura.class.getDeclaredField("numeroFactura");
-
-        field.setAccessible(true); // Permitimos acceso al campo privado
-        field.set(facturaIgual, nF);
-
-        assertTrue(factura.equals(facturaIgual));
-        assertEquals(factura.hashCode(), facturaIgual.hashCode());
     }
 
     @Test
@@ -99,20 +85,7 @@ public class FacturaTest {
     }
 
     @Test
-    void testGetNumeroFactura() {
-        assertNotNull(factura.getNumeroFactura());
-        String expectedPrefix = "POLAFLIX_" + factura.getMes() + "_";
-        assertTrue(factura.getNumeroFactura().startsWith(expectedPrefix));
-    }
-
-    @Test
     void testGetUsuario() {
         assertEquals(usuario, factura.getUsuario());
-    }
-
-    @Test
-    void testSetImporteTotal() {
-        factura.setImporteTotal(50);
-        assertEquals(50, factura.getImporteTotal());
     }
 }
