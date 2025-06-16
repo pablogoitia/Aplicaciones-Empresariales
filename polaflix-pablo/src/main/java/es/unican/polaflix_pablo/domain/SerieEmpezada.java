@@ -13,7 +13,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 
 @Entity
 public class SerieEmpezada {
@@ -25,7 +24,7 @@ public class SerieEmpezada {
     private final Usuario usuario;
 
     @JsonView({Views.Usuario.class})
-    @OneToOne
+    @ManyToOne
     private final Serie serie;
 
     @OneToMany
