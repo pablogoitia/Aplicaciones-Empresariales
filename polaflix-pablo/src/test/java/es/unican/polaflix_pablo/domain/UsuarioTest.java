@@ -23,7 +23,7 @@ public class UsuarioTest {
     void setUp() {
         usuario = new Usuario("usuario1", "password", "ES1234567890");
         categoria = new CategoriaSeries("Categoria 1", 10);
-        serie1 = new Serie("Serie 1", "Sinopsis", categoria, "Creadores", "Actores");
+        serie1 = new Serie("Serie 1", "Sinopsis", categoria, List.of("Creadores"), List.of("Actores"));
         temporada1 = new Temporada(1, serie1);
         capitulo1 = new Capitulo(1, "Capitulo 1", "Descripcion", temporada1);
         capitulo2 = new Capitulo(2, "Capitulo 2", "Descripcion", temporada1);
@@ -107,11 +107,11 @@ public class UsuarioTest {
         assertEquals(serie1.getNombre(), encontrada.getSerie().getNombre());
         
         // Prueba con una serie diferente que no esta en la lista
-        Serie serie2 = new Serie("Serie 2", "Sinopsis", categoria, "Creadores", "Actores");
+        Serie serie2 = new Serie("Serie 2", "Sinopsis", categoria, List.of("Creadores"), List.of("Actores"));
         assertNull(usuario.getSerieEmpezada(serie2));
         
         // Prueba con una serie con el mismo nombre pero diferente objeto
-        Serie serieMismoNombre = new Serie("Serie 1", "Sinopsis diferente", categoria, "Creadores", "Otros actores");
+        Serie serieMismoNombre = new Serie("Serie 1", "Sinopsis diferente", categoria, List.of("Creadores"), List.of("Otros actores"));
         encontrada = usuario.getSerieEmpezada(serieMismoNombre);
         assertNotNull(encontrada);
         assertEquals(serie1.getNombre(), encontrada.getSerie().getNombre());
@@ -129,7 +129,7 @@ public class UsuarioTest {
         assertFalse(usuario.getSeriesTerminadas().isEmpty());
 
         // Prueba con una serie que no esta en la lista
-        Serie serie2 = new Serie("Serie 2", "Sinopsis", categoria, "Creadores", "Actores");
+        Serie serie2 = new Serie("Serie 2", "Sinopsis", categoria, List.of("Creadores"), List.of("Actores"));
         assertNull(usuario.getSerieTerminada(serie2));
     }
 

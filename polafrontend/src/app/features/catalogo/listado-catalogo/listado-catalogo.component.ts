@@ -18,8 +18,8 @@ import { SerieInterface } from '../../../shared/interfaces/serie.interface';
           [idSerie]="serie.id"
           [tituloSerie]="serie.nombre"
           [sinopsis]="serie.sinopsis"
-          [creadores]="serie.creadores"
-          [actores]="serie.actores"
+          [creadores]="formatList(serie.creadores)"
+          [actores]="formatList(serie.actores)"
           [destacar]="esSerieEncontrada(serie)"
         />
       </ng-container>
@@ -34,5 +34,9 @@ export class ListadoCatalogoComponent {
 
   esSerieEncontrada(serie: SerieInterface): boolean {
     return this.seriesEncontradas.some(s => s.nombre === serie.nombre);
+  }
+
+  formatList(items: string[]): string {
+    return items ? items.join(', ') : '';
   }
 }

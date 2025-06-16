@@ -17,9 +17,9 @@ import jakarta.persistence.OneToMany;
 
 @Entity
 public class Serie {
-    @JsonView({Views.Serie.class, Views.IdSerie.class, Views.Usuario.class})
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView({Views.Serie.class, Views.VerSerie.class, Views.IdSerie.class, Views.Usuario.class})
     private Long id;
     
     @JsonView({Views.Serie.class, Views.VerSerie.class, Views.Usuario.class})
@@ -30,16 +30,17 @@ public class Serie {
     private String sinopsis;
 
     @JsonView({Views.Serie.class})
-    private String creadores;
+    private List<String> creadores = new ArrayList<>();
 
     @JsonView({Views.Serie.class})
-    private String actores;
+    private List<String> actores = new ArrayList<>();
 
     @ManyToOne
     @JsonView({Views.VerSerie.class})
     private CategoriaSeries categoria;
 
     @OneToMany(mappedBy = "serie", cascade = CascadeType.ALL)
+    @JsonView({Views.VerSerie.class})
     private final List<Temporada> temporadas = new ArrayList<>();
 
     /**
@@ -52,7 +53,7 @@ public class Serie {
      * @param actores   Nombres de los actores principales de la serie
      * @see CategoriaSeries
      */
-    public Serie(String nombre, String sinopsis, CategoriaSeries categoria, String creadores, String actores) {
+    public Serie(String nombre, String sinopsis, CategoriaSeries categoria, List<String> creadores, List<String> actores) {
         this.nombre = nombre;
         this.sinopsis = sinopsis;
         this.categoria = categoria;
@@ -117,19 +118,19 @@ public class Serie {
         this.categoria = categoria;
     }
 
-    public String getCreadores() {
+    public List<String> getCreadores() {
         return creadores;
     }
 
-    public void setCreadores(String creadores) {
+    public void setCreadores(List<String> creadores) {
         this.creadores = creadores;
     }
 
-    public String getActores() {
+    public List<String> getActores() {
         return actores;
     }
 
-    public void setActores(String actores) {
+    public void setActores(List<String> actores) {
         this.actores = actores;
     }
 

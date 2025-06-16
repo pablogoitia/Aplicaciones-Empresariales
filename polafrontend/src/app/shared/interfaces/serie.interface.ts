@@ -7,8 +7,8 @@ export interface SerieInterface {
   id: number;
   nombre: string;
   sinopsis: string;
-  creadores: string;
-  actores: string;
+  creadores: string[];
+  actores: string[];
 }
 
 export interface SerieAgregadaInterface {

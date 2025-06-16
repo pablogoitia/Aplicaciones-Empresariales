@@ -1,5 +1,7 @@
 package es.unican.polaflix_pablo;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -59,18 +61,18 @@ public class AppFeeder implements CommandLineRunner {
 	private void feedSeries() {
 		// Creación de series para simular su ciclo de vida
 		s1 = new Serie("La casa de papel", "Un grupo de criminales lleva a cabo el mayor atraco a la Real Casa de la Moneda de España.",
-				csr.findById(1L).get(), "Álex Pina", "Úrsula Corberó, Álvaro Morte...");
+			csr.findById(1L).get(), List.of("Álex Pina"), List.of("Úrsula Corberó", "Álvaro Morte", "Pedro Alonso", "Alba Flores"));
 		s2 = new Serie("Merlí", "Un profesor de filosofía enseña a sus alumnos a pensar por sí mismos.",
-				csr.findById(1L).get(), "Héctor Lozano", "Francesc Orella, Carlos Cuevas...");
-		s3 = new Serie("Reina Roja", "Antonia es “Reina Roja”, la pieza fundamental de una organización policial secreta que resuelve crímenes atroces.",
-				csr.findById(3L).get(), "Koldo Serra; Julián de Tavira", "Vicky Luengo, Hovik Keuchkerian...");
+				csr.findById(1L).get(), List.of("Héctor Lozano"), List.of("Francesc Orella", "Carlos Cuevas", "David Solans", "Ana María Barbany"));
+		s3 = new Serie("Reina Roja", "Antonia es 'Reina Roja', la pieza fundamental de una organización policial secreta que resuelve crímenes atroces.",
+				csr.findById(3L).get(), List.of("Koldo Serra", "Julián de Tavira"), List.of("Vicky Luengo", "Hovik Keuchkerian"));
 		// Creación de series de relleno, sin contenido, para probar la funcionalidad de "Añadir serie"
 		s4 = new Serie("Al filo del mañana", "Una raza de extraterrestres invencibles invade la Tierra. Al comandante William Cage, un oficial que nunca ha entrado en combate, le encargan una misión casi suicida y resulta muerto. Entra entonces en un bucle temporal, en el que se ve obligado a luchar y morir una y otra vez. Pero las múltiples batallas que libra lo hacen cada vez más hábil y eficaz en su lucha contra los alienígenas.",
-				csr.findById(1L).get(), "Doug Liman", "Tom Cruise, Emily Blunt...");
+				csr.findById(1L).get(), List.of("Doug Liman"), List.of("Tom Cruise", "Emily Blunt"));
 		s5 = new Serie("Alcatraz", "Dentro de los muros de la prisión más famosa del mundo, un grupo de presos desesperados intentan escapar o morir en el intento.",
-				csr.findById(2L).get(), "Andrew Jones", "Gareth Lawrence, Lee Bane...");
+				csr.findById(2L).get(), List.of("Andrew Jones"), List.of("Gareth Lawrence", "Lee Bane"));
 		s6 = new Serie("ABBA: Super Troupe", "Descubre la magia detrás de uno de los grupos más icónicos de la música pop en ABBA: Super Troupe. Esta película dirigida por Piers Garland en 2019, ofrece una mirada íntima a la trayectoria y el legado musical de ABBA, explorando sus mayores éxitos y el impacto cultural que han tenido a lo largo de los años.",
-				csr.findById(3L).get(), "Piers Garland", "Agnetha Fältskog, Björn Ulvaeus...");
+				csr.findById(3L).get(), List.of("Piers Garland"), List.of("Agnetha Fältskog", "Björn Ulvaeus"));
 
 		// Añadir temporadas a las series
 		Temporada s1t1 = new Temporada(1, s1);
