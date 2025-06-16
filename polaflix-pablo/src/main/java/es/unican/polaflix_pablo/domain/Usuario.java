@@ -31,6 +31,14 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    /**
+     * Hemos elegido la estrategia IDENTITY porque de esta manera la base de datos generará las 
+     * primary keys de manera secuencial, y los almacenará en una columna dentro de la propia 
+     * tabla de usuarios. La decisión viene motivada por su alta eficiencia y porque  
+     * facilitará mucho la realización de futuros tests, pruebas con la API...
+     * 
+     * En el resto del proyecto aplicaremos la misma estrategia.
+     */
 
     // Datos del usuario
     @JsonView({Views.Usuario.class})
@@ -46,7 +54,7 @@ public class Usuario {
     private final Set<Serie> seriesPendientes = new HashSet<>();
 
     @JsonView({Views.Usuario.class})
-    @OneToMany(cascade = CascadeType.ALL) 
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(
         name = "usuario_series_empezadas", 
         joinColumns = @JoinColumn(name = "usuario_id"), 
@@ -55,7 +63,7 @@ public class Usuario {
     private final Set<SerieEmpezada> seriesEmpezadas = new HashSet<>();
 
     @JsonView({Views.Usuario.class})
-    @OneToMany(cascade = CascadeType.ALL) 
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(
         name = "usuario_series_terminadas", 
         joinColumns = @JoinColumn(name = "usuario_id"), 
@@ -66,9 +74,9 @@ public class Usuario {
     // Informacion de facturacion
     private boolean suscrito = false;
     
+    // Propagamos a las facturas todas las operaciones menos REMOVE
     @OneToMany(mappedBy = "usuario", cascade = {CascadeType.PERSIST, CascadeType.MERGE, 
         CascadeType.REFRESH, CascadeType.DETACH})
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private final List<Factura> facturas = new ArrayList<>();
 
     /**
