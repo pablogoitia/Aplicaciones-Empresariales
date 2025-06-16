@@ -35,8 +35,7 @@ public class Factura {
     private final int anio;
 
     @ManyToOne
-    @JoinTable(name = "Usuario_Factura", joinColumns = @JoinColumn(name = "factura"), inverseJoinColumns = @JoinColumn(name = "usuario"))
-    private final Usuario usuario; // Con tabla intermedia para evitar eliminacion en cascada
+    private final Usuario usuario;
 
     @JsonView({ Views.Factura.class })
     @OneToMany(mappedBy = "factura", cascade = CascadeType.ALL)
