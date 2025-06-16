@@ -20,7 +20,7 @@ import es.unican.polaflix_pablo.service.Views;
 
 @RestController
 @RequestMapping("/series")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = {"http://localhost:4200", "http://0.0.0.0:4200"})
 public class SerieController {
 
     @Autowired
