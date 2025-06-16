@@ -16,6 +16,7 @@ public class CategoriaSeries {
     
     @JsonView({Views.VerSerie.class})
     private String nombre;
+    
     private double importeCapitulo;
 
     /**
