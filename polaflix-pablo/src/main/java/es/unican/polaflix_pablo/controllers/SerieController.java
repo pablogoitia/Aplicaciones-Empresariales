@@ -63,9 +63,9 @@ public class SerieController {
 
     @GetMapping("/{id}/temporadas")
     @JsonView({Views.VerSerie.class})
-    public ResponseEntity<List<Temporada>> getTemporadasSerie(@PathVariable Long id) {
-        ResponseEntity<List<Temporada>> result;
-        List<Temporada> t = serieService.getAllTemporadas(id);
+    public ResponseEntity<Serie> getTemporadasSerie(@PathVariable Long id) {
+        ResponseEntity<Serie> result;
+        Serie t = serieService.getAllTemporadas(id);
 
         if (t != null) {
             result = ResponseEntity.ok(t);

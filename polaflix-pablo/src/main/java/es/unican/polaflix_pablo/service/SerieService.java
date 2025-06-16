@@ -61,14 +61,14 @@ public class SerieService {
      * @return List<Temporada> - Lista de temporadas de la serie. Si la serie no existe, devuelve null.
      */
     @Transactional(readOnly = true)
-    public List<Temporada> getAllTemporadas(Long idSerie) {
+    public Serie getAllTemporadas(Long idSerie) {
         Serie serie = sr.findById(idSerie).orElse(null);
 
         if (serie == null) {
             return null;
         }
         
-        return serie.getTemporadas();
+        return serie;
     }
 
     /**

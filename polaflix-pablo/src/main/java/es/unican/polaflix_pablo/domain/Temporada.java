@@ -24,7 +24,6 @@ public class Temporada {
     @JsonView({Views.VerSerie.class, Views.NumTemporada.class})
     private final int numeroTemporada;
 
-    @JsonView({Views.VerSerie.class})
     @ManyToOne
     private final Serie serie;
 
