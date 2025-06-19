@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import es.unican.polaflix_pablo.domain.Serie;
-import es.unican.polaflix_pablo.domain.Temporada;
 import es.unican.polaflix_pablo.service.SerieService;
 import es.unican.polaflix_pablo.service.Views;
 
@@ -47,7 +46,7 @@ public class SerieController {
     }
 
     @GetMapping("/{idSerie}")
-    @JsonView({Views.InfoSerie.class})
+    @JsonView({Views.VerSerie.class})
     public ResponseEntity<Serie> getSerie(@PathVariable Long idSerie) {
         ResponseEntity<Serie> result;
         Serie s = serieService.getSerieById(idSerie);
@@ -56,36 +55,6 @@ public class SerieController {
             result = ResponseEntity.ok(s);
         } else {
             result = ResponseEntity.notFound().build();
-        }
-
-		return result;
-    }
-
-    @GetMapping("/{id}/temporadas")
-    @JsonView({Views.VerSerie.class})
-    public ResponseEntity<Serie> getTemporadasSerie(@PathVariable Long id) {
-        ResponseEntity<Serie> result;
-        Serie t = serieService.getAllTemporadas(id);
-
-        if (t != null) {
-            result = ResponseEntity.ok(t);
-        } else {
-            result = ResponseEntity.notFound().build();
-        }
-
-        return result;
-    }
-    
-    @GetMapping("/{id}/temporadas/{numTemporada}")
-    @JsonView({Views.VerSerie.class})
-    public ResponseEntity<Temporada> getTemporada(@PathVariable Long id, @PathVariable int numTemporada) {
-        ResponseEntity<Temporada> result;
-        Temporada t = serieService.getTemporadaById(id, numTemporada);
-
-        if (t == null) {
-            result = ResponseEntity.notFound().build();
-        } else {
-            result = ResponseEntity.ok(t);
         }
 
 		return result;
