@@ -27,7 +27,7 @@ public class SerieController {
     private SerieService serieService;
     
     @GetMapping
-    @JsonView({Views.Serie.class})
+    @JsonView({Views.InfoSerie.class})
     public ResponseEntity<List<Serie>> getSeries(@RequestParam(required = false) String inicial, @RequestParam(required = false) String nombre) {
         List<Serie> s = null;
 
@@ -46,11 +46,11 @@ public class SerieController {
 		return ResponseEntity.ok(s);
     }
 
-    @GetMapping("/{id}")
-    @JsonView({Views.Serie.class})
-    public ResponseEntity<Serie> getSerie(@PathVariable Long id) {
+    @GetMapping("/{idSerie}")
+    @JsonView({Views.InfoSerie.class})
+    public ResponseEntity<Serie> getSerie(@PathVariable Long idSerie) {
         ResponseEntity<Serie> result;
-        Serie s = serieService.getSerieById(id);
+        Serie s = serieService.getSerieById(idSerie);
 
         if (s != null) {
             result = ResponseEntity.ok(s);

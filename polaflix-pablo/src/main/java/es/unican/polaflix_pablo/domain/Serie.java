@@ -19,20 +19,20 @@ import jakarta.persistence.OneToMany;
 public class Serie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonView({Views.Serie.class, Views.VerSerie.class, Views.IdSerie.class, Views.Usuario.class})
+    @JsonView({Views.InfoSerie.class, Views.VerSerie.class, Views.IdSerie.class, Views.Usuario.class})
     private Long id;
     
-    @JsonView({Views.Serie.class, Views.VerSerie.class, Views.Usuario.class})
+    @JsonView({Views.InfoSerie.class, Views.VerSerie.class, Views.Usuario.class})
     private final String nombre;
     
-    @JsonView({Views.Serie.class})
+    @JsonView({Views.InfoSerie.class})
     @Column(length = 2000)
     private String sinopsis;
 
-    @JsonView({Views.Serie.class})
+    @JsonView({Views.InfoSerie.class})
     private List<String> creadores = new ArrayList<>();
 
-    @JsonView({Views.Serie.class})
+    @JsonView({Views.InfoSerie.class})
     private List<String> actores = new ArrayList<>();
 
     @ManyToOne
