@@ -28,6 +28,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.usuarioService.getInfoUsuario(environment.def_username).then((usuario) => {
+      // Las series llegan ordenadas por fecha de adición a las listas
       this.pendientes = usuario.seriesPendientes;
       this.empezadas = usuario.seriesEmpezadas;
       this.terminadas = usuario.seriesTerminadas;
