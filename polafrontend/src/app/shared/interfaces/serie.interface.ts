@@ -10,7 +10,3 @@ export interface SerieInterface {
   creadores: string[];
   actores: string[];
 }
-
-export interface SerieAgregadaInterface {
-  id: number;
-}
