@@ -25,12 +25,12 @@ public class SerieService {
     }
     
     /**
-     * Devuelve la primera serie que coincide total o parcialmente con el nombre dado.
-     * @return List<Serie> - Lista de series que coinciden con el nombre dado.
+     * Devuelve las series que coinciden total o parcialmente con el nombre dado.
+     * @return List<Serie> - Lista de series con el nombre dado.
      */
     @Transactional(readOnly = true)
     public List<Serie> getSeriesByName(String name) {
-        return sr.findByNombreStartingWithIgnoreCase(name);
+        return sr.findByNombreContainingIgnoreCase(name);
     }
 
     /**
@@ -38,8 +38,8 @@ public class SerieService {
      * @return Serie - Serie con el id dado. Si no existe, devuelve null.
      */
     @Transactional(readOnly = true)
-    public Serie getSerieById(Long id) {
-        return sr.findById(id).orElse(null);
+    public Serie getSerieById(Long idSerie) {
+        return sr.findById(idSerie).orElse(null);
     }
 
     /**
