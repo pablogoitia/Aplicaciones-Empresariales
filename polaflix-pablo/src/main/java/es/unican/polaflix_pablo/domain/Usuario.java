@@ -3,9 +3,7 @@ package es.unican.polaflix_pablo.domain;
 import java.util.List;
 import java.util.Set;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import es.unican.polaflix_pablo.service.Views;
@@ -55,6 +53,7 @@ public class Usuario {
 
     @JsonView({Views.Usuario.class})
     @OneToMany(cascade = CascadeType.ALL)
+    @JsonManagedReference
     @JoinTable(
         name = "usuario_series_empezadas", 
         joinColumns = @JoinColumn(name = "usuario_id"), 
@@ -64,6 +63,7 @@ public class Usuario {
 
     @JsonView({Views.Usuario.class})
     @OneToMany(cascade = CascadeType.ALL)
+    @JsonManagedReference
     @JoinTable(
         name = "usuario_series_terminadas", 
         joinColumns = @JoinColumn(name = "usuario_id"), 
@@ -77,6 +77,7 @@ public class Usuario {
     // Propagamos a las facturas todas las operaciones menos REMOVE
     @OneToMany(mappedBy = "usuario", cascade = {CascadeType.PERSIST, CascadeType.MERGE, 
         CascadeType.REFRESH, CascadeType.DETACH})
+    @JsonManagedReference
     private final List<Factura> facturas = new ArrayList<>();
 
     /**

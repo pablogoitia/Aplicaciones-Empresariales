@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import es.unican.polaflix_pablo.service.Views;
@@ -21,14 +23,16 @@ public class Temporada {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @JsonView({Views.VerSerie.class, Views.NumTemporada.class})
+    @JsonView({Views.VerSerie.class})
     private final int numeroTemporada;
 
     @ManyToOne
+    @JsonBackReference
     private final Serie serie;
 
     @JsonView({Views.VerSerie.class})
     @OneToMany(mappedBy = "temporada", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private final List<Capitulo> capitulos = new ArrayList<>();
 
     /**

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import es.unican.polaflix_pablo.service.Views;
@@ -15,8 +17,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
@@ -35,10 +35,12 @@ public class Factura {
     private final int anio;
 
     @ManyToOne
+    @JsonBackReference
     private final Usuario usuario;
 
     @JsonView({ Views.Factura.class })
     @OneToMany(mappedBy = "factura", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private final List<Cargo> cargos = new ArrayList<>();
 
     /**

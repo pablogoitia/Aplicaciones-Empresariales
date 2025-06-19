@@ -3,6 +3,7 @@ package es.unican.polaflix_pablo.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import es.unican.polaflix_pablo.service.Views;
@@ -19,7 +20,7 @@ import jakarta.persistence.OneToMany;
 public class Serie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonView({Views.InfoSerie.class, Views.VerSerie.class, Views.IdSerie.class, Views.Usuario.class})
+    @JsonView({Views.InfoSerie.class, Views.VerSerie.class, Views.Usuario.class})
     private Long id;
     
     @JsonView({Views.InfoSerie.class, Views.VerSerie.class, Views.Usuario.class})
@@ -41,6 +42,7 @@ public class Serie {
 
     @OneToMany(mappedBy = "serie", cascade = CascadeType.ALL)
     @JsonView({Views.VerSerie.class})
+    @JsonManagedReference
     private final List<Temporada> temporadas = new ArrayList<>();
 
     /**

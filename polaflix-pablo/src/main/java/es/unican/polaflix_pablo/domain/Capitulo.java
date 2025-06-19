@@ -2,6 +2,7 @@ package es.unican.polaflix_pablo.domain;
 
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import es.unican.polaflix_pablo.service.Views;
@@ -15,7 +16,7 @@ import jakarta.persistence.ManyToOne;
 public class Capitulo implements Comparable<Capitulo> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonView({Views.VerSerie.class, Views.CapitulosVistos.class})
+    @JsonView({Views.VerSerie.class})
     private Long id;
     
     @JsonView({Views.VerSerie.class})
@@ -28,6 +29,7 @@ public class Capitulo implements Comparable<Capitulo> {
     private String descripcion;
 
     @ManyToOne
+    @JsonBackReference
     private final Temporada temporada;
 
     /**

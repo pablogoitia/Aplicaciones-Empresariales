@@ -3,6 +3,7 @@ package es.unican.polaflix_pablo.domain;
 import java.util.Date;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import es.unican.polaflix_pablo.service.Views;
@@ -19,6 +20,7 @@ public class Cargo {
     private Long id;
     
     @ManyToOne
+    @JsonBackReference
     private final Factura factura;
 
     @JsonView({Views.Factura.class})
