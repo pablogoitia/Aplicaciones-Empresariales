@@ -28,20 +28,9 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.usuarioService.getInfoUsuario(environment.def_username).then((usuario) => {
-      this.pendientes = usuario.seriesPendientes.map((serie: any) => ({
-        id: serie.id,
-        nombre: serie.nombre,
-      }));
-
-      this.empezadas = usuario.seriesEmpezadas.map((item: any) => ({
-        id: item.serie.id,
-        nombre: item.serie.nombre,
-      }));
-
-      this.terminadas = usuario.seriesTerminadas.map((item: any) => ({
-        id: item.serie.id,
-        nombre: item.serie.nombre,
-      }));
+      this.pendientes = usuario.seriesPendientes;
+      this.empezadas = usuario.seriesEmpezadas;
+      this.terminadas = usuario.seriesTerminadas;
     });
   }
 }
