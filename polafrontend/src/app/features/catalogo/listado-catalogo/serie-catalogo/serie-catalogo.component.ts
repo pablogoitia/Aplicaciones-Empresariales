@@ -3,6 +3,7 @@ import { NgClass } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { SeparadorComponent } from 'src/app/shared/components/separador/separador.component';
 import { UsuarioService } from 'src/app/shared/services/usuario.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'content-serie',
@@ -35,6 +36,6 @@ export class SerieComponent {
   constructor(private usuarioService: UsuarioService) { }
 
   agregarASeriesPendientes(idSerie: number) {
-    this.usuarioService.agregaSeriePendiente(idSerie);
+    this.usuarioService.agregaSeriePendiente(environment.def_username, idSerie);
   }
 }
