@@ -23,14 +23,14 @@ export class CatalogoComponent implements OnInit {
 
   ngOnInit(): void {
     this.catalogoService.obtenerSeriesPorInicial('A').then(series => {
-      this.seriesInicial = series.sort((a, b) => a.nombre.localeCompare(b.nombre));
+      this.seriesInicial = series;
     });
   }
 
   onFiltroSeleccionado(filtro: { tipo: 'letra' | 'busqueda'; valor: string }) {
     if (filtro.tipo === 'letra') {
       this.catalogoService.obtenerSeriesPorInicial(filtro.valor).then(series => {
-        this.seriesInicial = series.sort((a, b) => a.nombre.localeCompare(b.nombre));
+        this.seriesInicial = series;
         this.titulo = '';
       });
     } else if (filtro.tipo === 'busqueda') {
@@ -39,7 +39,7 @@ export class CatalogoComponent implements OnInit {
 
         if (this.seriesEncontradas.length > 0) {
           this.catalogoService.obtenerSeriesPorInicial(filtro.valor.charAt(0)).then(series => {
-            this.seriesInicial = series.sort((a, b) => a.nombre.localeCompare(b.nombre));
+            this.seriesInicial = series;
           });
           this.titulo = `Resultados de la búsqueda: "${filtro.valor}"`;
         } else {

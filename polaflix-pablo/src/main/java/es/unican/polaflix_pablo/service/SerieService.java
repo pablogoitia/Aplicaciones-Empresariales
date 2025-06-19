@@ -21,7 +21,9 @@ public class SerieService {
      */
     @Transactional(readOnly = true)
     public List<Serie> getAllSeries() {
-        return sr.findAll();
+        List<Serie> series = sr.findAll();
+        series.sort(null);
+        return series;
     }
     
     /**
@@ -30,7 +32,9 @@ public class SerieService {
      */
     @Transactional(readOnly = true)
     public List<Serie> getSeriesByName(String name) {
-        return sr.findByNombreContainingIgnoreCase(name);
+        List<Serie> series = sr.findByNombreContainingIgnoreCase(name);
+        series.sort(null);
+        return series;
     }
 
     /**
@@ -49,7 +53,8 @@ public class SerieService {
      */
     @Transactional(readOnly = true)
     public List<Serie> getSeriesByInitial(String inicial) {
-        String i = "" + inicial.toUpperCase().charAt(0);
-        return sr.findByNombreStartingWithIgnoreCase(i);
+        List<Serie> series = sr.findByNombreStartingWithIgnoreCase(inicial);
+        series.sort(null);
+        return series;
     }
 }

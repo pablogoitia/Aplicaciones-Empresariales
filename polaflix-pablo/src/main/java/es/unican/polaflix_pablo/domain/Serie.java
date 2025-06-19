@@ -17,7 +17,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
 @Entity
-public class Serie {
+public class Serie implements Comparable<Serie> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonView({Views.InfoSerie.class, Views.VerSerie.class, Views.Usuario.class})
@@ -155,5 +155,10 @@ public class Serie {
     @Override
     public int hashCode() {
         return java.util.Objects.hash(nombre, creadores);
+    }
+
+    @Override
+    public int compareTo(Serie o) {
+        return this.nombre.compareTo(o.nombre);
     }
 }
