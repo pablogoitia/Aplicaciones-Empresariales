@@ -29,59 +29,28 @@ public class UsuarioService {
         return ur.findByNombreUsuario(nombreUsuario);
     }
 
-    @Transactional(readOnly = true)
-    public List<Capitulo> getCapitulosVistosUsuarioSerie(String nombreUsuario, Long idSerie) {
-        Usuario usuario = ur.findByNombreUsuario(nombreUsuario);
-        Serie serie = sr.findById(idSerie).orElse(null);
-        List<Capitulo> capitulos = List.of();
-        SerieEmpezada serieEmpezada = null;
+    public List<Long> getCapitulosVistos(String nombreUsuario, Long idSerie) {
+        List<Capitulo> capitulos = getCapitulosVistosBase(nombreUsuario, idSerie);
 
-        if (usuario == null || serie == null) {
+        if (capitulos == null) {
             return null;
         }
 
-        serieEmpezada = usuario.getSerieEmpezada(serie);
-
-        if (serieEmpezada == null) {
-            serieEmpezada = usuario.getSerieTerminada(serie);
-        }
-
-        if (serieEmpezada != null) {
-            capitulos = serieEmpezada.getCapitulosVistos();
-        }
-
-        return capitulos;
+        return getIDsCapitulos(capitulos);
     }
 
-    @Transactional(readOnly = true)
-    public Integer getUltimaTemporadaVista(String nombreUsuario, Long idSerie) {
-        Usuario usuario = ur.findByNombreUsuario(nombreUsuario);
-        Serie serie = sr.findById(idSerie).orElse(null);
-        SerieEmpezada serieEmpezada = null;
-        Integer temporada = 1;
-        int temp;
+    public List<Long> getCapitulosVistosPorTemporada(String nombreUsuario, Long idSerie, Integer numTemporada) {
+        List<Capitulo> capitulos = getCapitulosVistosBase(nombreUsuario, idSerie);
 
-        if (usuario == null || serie == null) {
+        if (capitulos == null) {
             return null;
         }
 
-        serieEmpezada = usuario.getSerieEmpezada(serie);
-
-        if (serieEmpezada == null) {
-            serieEmpezada = usuario.getSerieTerminada(serie);
-        }
-
-        if (serieEmpezada != null) {
-            temporada = 1;
-            for (Capitulo c : serieEmpezada.getCapitulosVistos()) {
-                temp = c.getTemporada().getNumeroTemporada();
-                if (temp > temporada) {
-                    temporada = temp;
-                }
-            }
-        }
-
-        return temporada;
+        capitulos = capitulos.stream()
+                .filter(c -> c.getTemporada().getNumeroTemporada() == numTemporada)
+                .toList();
+                
+        return getIDsCapitulos(capitulos);
     }
 
     @Transactional
@@ -124,33 +93,52 @@ public class UsuarioService {
         return s;
     }
 
-    @Transactional(readOnly = true)
     public List<Factura> getAllFacturas(String nombreUsuario) {
-        Usuario u = ur.findByNombreUsuario(nombreUsuario);
-        List<Factura> facturas = null;
+        return getFacturasBase(nombreUsuario);
+    }
 
-        if (u == null) {
-            return null;
+    public List<Factura> getFacturaConFiltro(String nombreUsuario, int mes, int anio) {
+        List<Factura> facturas = getFacturasBase(nombreUsuario);
+
+        if (facturas != null) {
+            facturas.removeIf(f -> f.getMes() != mes || f.getAnio() != anio);
         }
-
-        facturas = u.getFacturas();
 
         return facturas;
     }
 
     @Transactional(readOnly = true)
-    public List<Factura> getFacturaConFiltro(String nombreUsuario, int mes, int anio) {
+    private List<Capitulo> getCapitulosVistosBase(String nombreUsuario, Long idSerie) {
+        Usuario usuario = ur.findByNombreUsuario(nombreUsuario);
+        Serie serie = sr.findById(idSerie).orElse(null);
+        SerieEmpezada serieEmpezada;
+
+        if (usuario == null || serie == null) {
+            return null;
+        }
+
+        serieEmpezada = usuario.getSerieEmpezada(serie);
+        if (serieEmpezada == null) {
+            serieEmpezada = usuario.getSerieTerminada(serie);
+        }
+
+        return (serieEmpezada != null) ? serieEmpezada.getCapitulosVistos() : null;
+    }
+
+    private List<Long> getIDsCapitulos(List<Capitulo> capitulos) {
+        return capitulos.stream()
+                .map(Capitulo::getId)
+                .toList();
+    }
+
+    @Transactional(readOnly = true)
+    private List<Factura> getFacturasBase(String nombreUsuario) {
         Usuario u = ur.findByNombreUsuario(nombreUsuario);
-        List<Factura> facturas = null;
 
         if (u == null) {
             return null;
         }
 
-        facturas = u.getFacturas();
-
-        facturas.removeIf(f -> f.getMes() != mes || f.getAnio() != anio);
-
-        return facturas;
+        return u.getFacturas();
     }
 }

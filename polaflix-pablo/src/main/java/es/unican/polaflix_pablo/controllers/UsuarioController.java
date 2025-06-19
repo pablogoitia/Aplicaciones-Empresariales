@@ -1,7 +1,6 @@
 package es.unican.polaflix_pablo.controllers;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -45,67 +44,50 @@ public class UsuarioController {
         return result;
     }
 
-    @GetMapping("/{nombreUsuario}/capitulos-vistos/{idSerie}")
-    public ResponseEntity<List<Long>> getCapitulosVistosUsuarioSerie(@PathVariable String nombreUsuario, @PathVariable Long idSerie, @RequestParam(required = false) Integer numTemporada) {
-        List<Capitulo> capitulos = usuarioService.getCapitulosVistosUsuarioSerie(nombreUsuario, idSerie);
+    @GetMapping("/{nombreUsuario}/capitulos-vistos")
+    public ResponseEntity<List<Long>> getCapitulosVistos(@PathVariable String nombreUsuario, @RequestParam Long idSerie, @RequestParam(required = false) Integer numTemporada) {
+        List<Long> capitulos;
+
+        if (numTemporada == null) {
+            capitulos = usuarioService.getCapitulosVistos(nombreUsuario, idSerie);
+        } else {
+            capitulos = usuarioService.getCapitulosVistosPorTemporada(nombreUsuario, idSerie, numTemporada);
+        }
 
         if (capitulos == null) {
             return ResponseEntity.notFound().build();
         }
 
-        if (numTemporada != null) {
-            capitulos.removeIf(c -> c.getTemporada().getNumeroTemporada() != numTemporada);
-        }
-
-        List<Long> numerosCapitulos = capitulos.stream()
-            .map(cv -> cv.getId())
-            .collect(Collectors.toList());
-
-        return ResponseEntity.ok(numerosCapitulos);
+        return ResponseEntity.ok(capitulos);
     }
 
-    @GetMapping("/{nombreUsuario}/capitulos-vistos/{idSerie}/ultima-temporada")
-    @JsonView({Views.NumTemporada.class})
-    public ResponseEntity<Integer> getUltimaTemporadaVista(@PathVariable String nombreUsuario, @PathVariable Long idSerie) {
-        Integer ultimaTemporada = usuarioService.getUltimaTemporadaVista(nombreUsuario, idSerie);
-
-        if (ultimaTemporada == null) {
-            return ResponseEntity.badRequest().build();
-        }
-
-        return ResponseEntity.ok(ultimaTemporada);
-    }
-
-    @PutMapping("/{nombreUsuario}/ver-capitulo")
-    @JsonView({Views.CapitulosVistos.class})
+    @PutMapping("/{nombreUsuario}/capitulos-vistos")
     public ResponseEntity<Capitulo> visualizarCapitulo(
         @PathVariable String nombreUsuario,
         @RequestParam Long idSerie,
         @RequestParam Integer numTemporada,
         @RequestParam Integer numCapitulo) {
         
-        Capitulo c = usuarioService.verCapitulo(nombreUsuario, idSerie, numTemporada, numCapitulo);
+        Capitulo c;
+
+        c = usuarioService.verCapitulo(nombreUsuario, idSerie, numTemporada, numCapitulo);
 
         if (c == null) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.notFound().build();
         }
 
-        return ResponseEntity.ok(c);
+        return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/{nombreUsuario}/nueva-pendiente/{idSerie}")
-    @JsonView({Views.IdSerie.class})
+    @PutMapping("/{nombreUsuario}/series-pendientes/{idSerie}")
     public ResponseEntity<Serie> nuevaPendiente(@PathVariable String nombreUsuario, @PathVariable Long idSerie) {
-        ResponseEntity<Serie> result;
         Serie s = usuarioService.anhadeSeriePendiente(nombreUsuario, idSerie);
 
-        if (s != null) {
-            result = ResponseEntity.ok(s);
-        } else {
-            result = ResponseEntity.badRequest().build();
+        if (s == null) {
+            return ResponseEntity.notFound().build();
         }
 
-        return result;
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{nombreUsuario}/facturas")
