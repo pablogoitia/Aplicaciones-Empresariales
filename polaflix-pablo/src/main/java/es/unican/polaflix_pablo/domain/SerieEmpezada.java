@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import es.unican.polaflix_pablo.service.Views;
@@ -27,6 +28,7 @@ public class SerieEmpezada {
 
     @JsonView({Views.Usuario.class})
     @ManyToOne
+    @JsonValue
     private final Serie serie;
 
     @OneToMany
