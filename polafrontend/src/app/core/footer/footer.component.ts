@@ -9,9 +9,9 @@ import { Component } from '@angular/core';
             <p><b>&copy; 2025 Polaflix.</b> Todos los derechos reservados.</p>
         </div>
         <div class="footer-right">
-            <a href="/" title="Términos y condiciones">Términos y condiciones</a>
-            <a href="/" title="Política de privacidad">Política de privacidad</a>
-            <a href="/" title="Contáctanos">Contáctanos</a>
+            <a href="/terminos-y-condiciones" title="Términos y condiciones">Términos y condiciones</a>
+            <a href="/politica-de-privacidad" title="Política de privacidad">Política de privacidad</a>
+            <a href="/contacto" title="Contáctanos">Contáctanos</a>
         </div>
     </footer>
   `,
