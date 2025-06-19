@@ -3,7 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './core/header/header.component';
 import { MainMenuComponent } from './core/main-menu/main-menu.component';
 import { FooterComponent } from './core/footer/footer.component';
-import { environment } from '../environments/environment';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',

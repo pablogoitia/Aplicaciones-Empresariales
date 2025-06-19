@@ -4,7 +4,7 @@ import { AdBannerComponent } from '../../shared/components/ad-banner/ad-banner.c
 import { SeparadorComponent } from '../../shared/components/separador/separador.component';
 import { UsuarioService } from '../../shared/services/usuario.service';
 import { ResumenSerieInterface } from '../../shared/interfaces/serie.interface';
-import { environment } from '../../../environments/environment';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'content-profile',
