@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { UsuarioInterface } from 'src/app/shared/interfaces/usuario.interface';
-import { SerieAgregadaInterface } from 'src/app/shared/interfaces/serie.interface';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -20,8 +19,8 @@ export class UsuarioService {
     return await response.json();
   }
 
-  async agregaSeriePendiente(username: string, idSerie: number): Promise<SerieAgregadaInterface> {
-    const response = await fetch(`http://localhost:8080/usuarios/${username}/nueva-pendiente/${idSerie}`, {
+  async agregaSeriePendiente(username: string, idSerie: number): Promise<void> {
+    const response = await fetch(`http://localhost:8080/usuarios/${username}/series-pendientes/${idSerie}`, {
       method: 'PUT'
     });
     if (!response.ok) {
