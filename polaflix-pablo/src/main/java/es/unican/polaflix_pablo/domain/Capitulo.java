@@ -15,6 +15,7 @@ import jakarta.persistence.ManyToOne;
 public class Capitulo implements Comparable<Capitulo> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView({Views.VerSerie.class, Views.CapitulosVistos.class})
     private Long id;
     
     @JsonView({Views.VerSerie.class})
