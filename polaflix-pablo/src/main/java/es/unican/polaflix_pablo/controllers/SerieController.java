@@ -36,10 +36,12 @@ public class SerieController {
 
         if (inicial == null && nombre == null) {
             s = serieService.getAllSeries();
-        } else if (inicial != null) {
+        } else if (nombre != null) {
+            s = serieService.getSeriesByName(nombre);
+        } else if (inicial != null && inicial.length() == 1 && inicial.matches("[a-zA-Z0-9ñÑ]")) {
             s = serieService.getSeriesByInitial(inicial);
         } else {
-            s = serieService.getSeriesByName(nombre);
+            return ResponseEntity.badRequest().build();
         }
 
 		return ResponseEntity.ok(s);
